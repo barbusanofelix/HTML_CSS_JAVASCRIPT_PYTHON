@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Adicion en Arreglos y mostrar info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #contenido {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        // Array inicial de artículos
+        var articulos = ["balon", "botas", "camiseta", "pantalon"];
+
+        // Función para mostrar la información inicial
+        function mostrarInformacionInicial() {
+            var contenido = document.getElementById("contenido");
+
+            // Mostrar la información inicial
+            contenido.innerHTML += "<p>El primer articulo es <strong>" + articulos[0] + "</strong></p>";
+            contenido.innerHTML += "<p>La longitud del array es " + articulos.length + "</p>";
+            contenido.innerHTML += "<p>El último articulo es <strong>" + articulos[articulos.length - 1] + "</strong></p>";
+
+            // Modificar el array
+            articulos.unshift("pelota"); // Agregar al principio
+            articulos.push("canasta");   // Agregar al final
+
+            // Mostrar la información después de modificar el array
+            contenido.innerHTML += "<p>Añadimos el artículo <strong>" + articulos[0] + "</strong></p>";
+            contenido.innerHTML += "<p>El primer articulo ahora es <strong>" + articulos[0] + "</strong></p>";
+            contenido.innerHTML += "<p>El último articulo ahora es <strong>" + articulos[articulos.length - 1] + "</strong></p>";
+            contenido.innerHTML += "<p>La longitud del array ahora es " + articulos.length + "</p>";
+            contenido.innerHTML += "<p>Contenido del array: " + articulos.join(", ") + "</p>";
+        }
+
+        // Función para solicitar un nuevo artículo y actualizar la página
+        function solicitarNuevoArticulo() {
+            var nuevoArticulo = prompt("Introduce nuevo artículo:");
+            if (nuevoArticulo !== null && nuevoArticulo.trim() !== "") {
+                articulos.push(nuevoArticulo);
+                var contenido = document.getElementById("contenido");
+                contenido.innerHTML += "<p>Contenido actualizado del array: " + articulos.join(", ") + "</p>";
+            } else {
+                alert("No se introdujo ningún artículo.");
+            }
+        }
+
+        // Llamar a las funciones en el orden correcto
+        window.onload = function() {
+            mostrarInformacionInicial(); // Mostrar la información inicial
+            solicitarNuevoArticulo();   // Solicitar un nuevo artículo
+        };
+    </script>
+</head>
+<body>
+    <div id="contenido">
+        <!-- Aquí se mostrará la información -->
+    </div>
+</body>
+</html>

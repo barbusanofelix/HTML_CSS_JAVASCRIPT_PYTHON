@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina el número</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #mensajes {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        input[type="number"] {
+            padding: 5px;
+            font-size: 1em;
+        }
+        button {
+            padding: 5px 10px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Adivina el número (entre 0 y 20)</h1>
+    <form id="formulario">
+        <input type="number" id="numeroInput" min="0" max="20" required>
+        <button type="submit">Adivinar</button>
+    </form>
+
+    <div id="mensajes">
+        <!-- Los mensajes se mostrarán aquí -->
+    </div>
+
+    <script>
+        // Generar un número aleatorio entre 0 y 20
+        var numero = Math.floor(Math.random() * 21); // Número entre 0 y 20
+        var contador = 0;
+
+        // Capturar el evento de envío del formulario
+        document.getElementById("formulario").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe
+
+            // Obtener el número introducido por el usuario
+            var numeroIntroducido = Number(document.getElementById("numeroInput").value);
+            contador++;
+
+            // Mostrar mensajes en la página
+            var mensajes = document.getElementById("mensajes");
+
+            if (numeroIntroducido > numero) {
+                mensajes.innerHTML = "<p>Demasiado alto. Intenta de nuevo.</p>";
+            } else if (numeroIntroducido < numero) {
+                mensajes.innerHTML = "<p>Demasiado bajo. Intenta de nuevo.</p>";
+            } else {
+                mensajes.innerHTML = `<p>¡CORRECTO! El número era el ${numero}. Has acertado en ${contador} intentos.</p>`;
+                document.getElementById("formulario").style.display = "none"; // Ocultar el formulario
+            }
+
+            // Limpiar el campo de entrada
+            document.getElementById("numeroInput").value = "";
+        });
+    </script>
+</body>
+</html>

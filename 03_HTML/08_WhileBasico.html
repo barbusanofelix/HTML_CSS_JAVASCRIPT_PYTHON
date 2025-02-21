@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>While Basico</title>
+
+    <script>
+        // Comentrios dentro del scriptvan con // o /* */
+        var contador = 0;
+	var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+	"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+    // Detalle insignificante , las comillas asi: ' no funcionan -->
+    document.write('<h1>Los meses del año son:${meses.lenght}</h1>');
+    // Detalle insignificante , las comillas asi: ` SI funcionan -->
+    document.write(`<h1>Los meses del año son: ${meses.length}</h1>`);
+    document.write(`<h3> Los meses del año -1 son ${meses.length-1}</h3>`);
+
+	while (contador < meses.length) {
+	document.write(meses[contador] + "<br>");
+	contador++;
+	}
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

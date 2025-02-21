@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enento OnHover sobre una imagen</title>
+</head>
+
+<body>
+    <h1>Evento OnHover sobre una imagen</h1>
+    <p>Al pasar el ratón por encima de la imagen se mostrará un mensaje emergente</p>
+    <img src=https://picsum.photos/200/300 id="imagen">
+
+    <script>
+        var miImagen = document.getElementById('imagen');
+        miImagen.addEventListener('mouseover', function () { alert('Has pasado el ratón encima de la imagen') })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Documento sin título</title>
+    <script>
+        var articulos = ["balon", "botas", "camiseta", "pantalon"];
+    </script>
+</head>
+<body>
+    <script>
+        // Mostrar la información inicial
+        document.write("<p>El primer articulo es <strong>" + articulos[0] + "</strong></p>");
+        document.write("<p>La longitud del array es " + articulos.length + "</p>");
+        document.write("<p>El último articulo es <strong>" + articulos[articulos.length - 1] + "</strong></p>");
+
+        // Modificar el array
+        articulos.unshift("pelota"); // Agregar al principio
+        articulos.push("canasta");   // Agregar al final
+
+        // Mostrar la información después de modificar el array
+        document.write("<p>Añadimos el artículo <strong>" + articulos[0] + "</strong></p>");
+        document.write("<p>El primer articulo ahora es <strong>" + articulos[0] + "</strong></p>");
+        document.write("<p>El último articulo ahora es <strong>" + articulos[articulos.length - 1] + "</strong></p>");
+        document.write("<p>La longitud del array ahora es " + articulos.length + "</p>");
+        document.write("<p>Contenido del array: " + articulos.join(", ") + "</p>");
+
+        // Solicitar un nuevo artículo al usuario después de mostrar el contenido
+        var nuevoArticulo = prompt("Introduce nuevo artículo:");
+        articulos.push(nuevoArticulo);
+
+        // Mostrar el array actualizado
+        document.write("<p>Contenido actualizado del array: " + articulos.join(", ") + "</p>");
+    </script>
+</body>
+</html>

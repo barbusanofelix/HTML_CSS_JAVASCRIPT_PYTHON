@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Documento sin título</title>
+    <script>
+        var articulos = ["balon", "botas", "camiseta", "pantalon"];
+    </script>
+</head>
+<body>
+    <div id="contenido">
+        <!-- Aquí se mostrará la información -->
+    </div>
+
+    <script>
+        // Función para mostrar información en la página
+        function mostrarInformacion() {
+            var contenido = document.getElementById("contenido");
+
+            // Mostrar la información inicial
+            contenido.innerHTML += "<p>El primer articulo es <strong>" + articulos[0] + "</strong></p>";
+            contenido.innerHTML += "<p>La longitud del array es " + articulos.length + "</p>";
+            contenido.innerHTML += "<p>El último articulo es <strong>" + articulos[articulos.length - 1] + "</strong></p>";
+
+            // Modificar el array
+            articulos.unshift("pelota"); // Agregar al principio
+            articulos.push("canasta");   // Agregar al final
+
+            // Mostrar la información después de modificar el array
+            contenido.innerHTML += "<p>Añadimos el artículo <strong>" + articulos[0] + "</strong></p>";
+            contenido.innerHTML += "<p>El primer articulo ahora es <strong>" + articulos[0] + "</strong></p>";
+            contenido.innerHTML += "<p>El último articulo ahora es <strong>" + articulos[articulos.length - 1] + "</strong></p>";
+            contenido.innerHTML += "<p>La longitud del array ahora es " + articulos.length + "</p>";
+            contenido.innerHTML += "<p>Contenido del array: " + articulos.join(", ") + "</p>";
+
+            // Solicitar un nuevo artículo al usuario
+            var nuevoArticulo = prompt("Introduce nuevo artículo:");
+            articulos.push(nuevoArticulo);
+
+            // Mostrar el array actualizado
+            contenido.innerHTML += "<p>Contenido actualizado del array: " + articulos.join(", ") + "</p>";
+        }
+
+        // Llamar a la función después de que la página se cargue
+        window.onload = mostrarInformacion;
+    </script>
+</body>
+</html>

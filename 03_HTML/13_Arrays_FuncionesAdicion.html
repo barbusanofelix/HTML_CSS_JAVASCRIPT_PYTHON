@@ -1,0 +1,32 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Documento sin título</title>
+	<script>
+		var articulos = ["balon", "botas","camiseta", "pantalon"];
+	</script>
+</head>
+<body>
+<script>
+	document.write("<p>El primer articulo es <strong>" + articulos[0] + "</strong> </p > ");
+    document.write("<p>La longitud del array es " + articulos.length + "</p>");
+    document.write("<p>El último articulo es <strong>" + articulos[articulos.length- 1] + "</strong></p>");
+// unshift: Agrega elementos al principio del array.
+	articulos.unshift("pelota");
+	// push: Agrega elementos al final del array.
+	articulos.push("canasta");
+	document.write("<p>Añadimos el artículo <strong>" + articulos[0] +
+	"</strong></p>");
+	document.write("<p>El primer articulo ahora es <strong>" + articulos[0] 	+ "</strong></p>");
+	document.write("<p>El último articulo ahora es <strong>" + articulos[articulos.length - 1] + "</strong></p>");
+	document.write("<P>La longitud del array ahora es " + articulos.length + "</p>");
+	document.write(articulos);
+    // Con esta version la pagina no muestra nada hasta correr el promt
+	// articulos.push(prompt("introduce nuevo articulo"));
+    var nuevoArticulo = prompt("Introduce nuevo artículo:");
+        articulos.push(nuevoArticulo);
+	document.write("<br>");
+	document.write(articulos);
+	</script>
+</body>
+</html>

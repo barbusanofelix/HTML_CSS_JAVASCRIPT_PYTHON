@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensaje Personalizado</title>
+    <style>
+        h1 {
+            color: blue;
+            text-align: center;
+        }
+        p {
+            font-size: 1.2em;
+            text-align: center;
+        }
+        #mensaje-container {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
+    <script>
+        // Esperar a que el DOM esté completamente cargado
+        document.addEventListener("DOMContentLoaded", function() {
+            // Solicitar nombre y apellido al usuario
+            var nombre = prompt("Introduce tu nombre:");
+            var apellido = prompt("Introduce tu apellido:");
+
+            // Validar que se introdujeron datos
+            if (!nombre || !apellido) {
+                alert("Debes introducir tu nombre y apellido.");
+                location.reload(); // Recargar la página para volver a solicitar los datos
+            }
+
+            // Crear el mensaje personalizado
+            var mensaje = `<h1>¡Hola, ${nombre} ${apellido}!</h1>
+                           <p>Que tengas un feliz día.</p>`;
+
+            // Insertar el mensaje en el contenedor llamado "mensaje-container"
+            document.getElementById("mensaje-container").innerHTML = mensaje;
+        });
+    </script>
+</head>
+<body>
+    <!-- Contenido existente -->
+    <p>Este es un mensaje existente en la página.</p>
+
+    <!-- Contenedor para el mensaje personalizado -->
+    <div id="mensaje-container">
+        <!-- El mensaje se insertará aquí -->
+    </div>
+
+    <!-- Más contenido -->
+    <p>Este es otro mensaje existente en la página.</p>
+</body>
+</html>

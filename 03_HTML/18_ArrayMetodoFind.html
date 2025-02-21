@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uso de funcion find en Arrays</title>
+    <script>
+        var nombres = ["Angel", "Sara", "Manolo", "Ana"];
+        nombre = prompt("Introduce un nombre: ");
+    </script>
+</head>
+
+<body>
+    <script>
+        /*
+        Find() lleva como argumento una función y por eso le pasamos la funcion flecha =>
+        que comparara cada elemento del array con el nombre introducido por el usuario.
+        Mejor usar === para compracion estricta porque compara el valor y el tipo de dato.
+        es decir, podriamos tener 5 == "5" como verdadero pero 5 === "5" como falso.
+        javascript compara el 5 y del otro lado, si tienes 2 signos == javascript intentara
+        hacer la conversion de los tipos de datos para que sean iguales y luego compararlos y ello 
+        llevara a un error en la comparacion. Por eso es mejor usar === para comparaciones estrictas.
+        */
+        var busqueda = nombres.find(elemento => elemento == nombre);
+        if (busqueda) {
+            document.write("El nombre " + nombre + " ha sido encontrado en el array");
+            document.write("<br>");
+        } else {
+            document.write("El nombre " + nombre + " no ha sido encontrado en el array");
+            document.write("<br>");
+        }
+        document.write("busqueda es: " + busqueda);
+    </script>
+
+</body>
+
+</html>

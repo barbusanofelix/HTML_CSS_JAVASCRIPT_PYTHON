@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+function numeros(num1,num2,...otros){
+        document.write("<br>");
+		document.write("num1:"+num1 +" , num2: "+ num2);
+        document.write(" Otros: "+otros);
+		}
+
+	var arrayNumeros=[1,10];
+    document.write("LLamada con numeros(..."+arrayNumeros+" y 3,4,54,332");
+	numeros(...arrayNumeros,3,4,54,332);
+    document.write(" asigna a num1=1, num2=10 y a otros [3,4,54,332]");
+    document.write("<br>");
+    document.write("LLamada sin los puntos suspensivos: numeros(arrayNumeros,3,4,54,332)");
+    document.write("<br>");
+    numeros(arrayNumeros,3,4,54,332); documument.write("<br>");
+    document.write(" asigna a num1=[1,10], num2=3 y a otros [4,54,332]");
+
+    </script>
+    
+</body>
+</html>

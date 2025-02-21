@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar un arreglo</title>
+    <script>
+        var nombres = ["Angel", "Sara","Manolo", "Ana"];
+    </script>
+</head>
+<body>
+    <script>
+
+document.write("<ul>");
+	
+            document.write("<h4>Lista original de nombres</h4>");
+            for (var i = 0; i < nombres.length;i++) {
+		        document.write("<li>" + nombres[i] + "</li>");
+		    };
+document.write("</ul>");
+    
+    document.write("Ahora ordenado alfabeticamente ascendente");
+    nombres=nombres.sort(); // Ordena alfabeticamente el arrglo con sort
+    document.write("<ol>");
+    for (var i = 0; i < nombres.length;i++) {
+        document.write("<li>" + nombres[i] + "</li>");
+        };
+    document.write("</ol>");
+   
+    document.write("Ahora ordenado alfabeticamente descendente");
+    nombres=nombres.reverse(); // Ordena alfabeticamente el arrglo con reverse()
+    document.write("<ol>");
+    for (var i = 0; i < nombres.length;i++) {
+        document.write("<li>" + nombres[i] + "</li>");
+        };
+document.write("</ol>");
+document.write("<br>");
+    </script>
+    
+</body>
+</html>

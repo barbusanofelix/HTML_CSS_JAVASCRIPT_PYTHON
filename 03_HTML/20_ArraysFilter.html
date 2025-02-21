@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar elementos mayores que 40 en un Array</title>
+
+    <script>
+        var numeros = [3, 45, 33, 65, 776];
+
+        // Mostramos el array original
+        document.write("Array original: " + numeros + "<br>");
+        // Usamos filter para obtener un nuevo array con solo los números mayores que 40
+        var mayoresQue40 = numeros.filter(numero => numero > 40);
+
+        document.write("<br>"); // Salto de línea
+        // Mostramos el array resultante
+        document.write("Números mayores que 40: " + mayoresQue40);
+        document.write("<br>"); // Salto de línea
+        // O, si quieres mostrarlos uno por uno:
+        document.write("<br>Números mayores que 40 (uno por uno):<br>");
+        mayoresQue40.forEach(numero => document.write(numero + "<br>"));
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

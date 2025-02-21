@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function funcionPrincipal(callback1, callback2, callback3) {
+            //código de la función principal
+            callback1("Felix");
+            //más código de la función principal
+            callback2();
+            //más código de la función principal
+            callback3();
+            //más código si fuera necesario
+        }
+        function callback1(nombre) {
+            document.write('primer callback '+nombre+"<br>");
+        }
+
+        function callback2() {
+            document.write('segundo callback'+ "<br>");
+        }
+        function callback3() {
+            document.write('tercer callback'+ "<br>");
+        }
+
+        funcionPrincipal(callback1, callback2, callback3);
+
+
+    </script>
+
+</body>
+
+</html>

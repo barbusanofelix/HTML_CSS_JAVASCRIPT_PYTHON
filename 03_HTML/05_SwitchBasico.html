@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Switch</title>
+    <script>
+        // Definir la edad
+        var edad = 18;
+        var imprime = "";
+
+        // Evaluar la edad con un switch
+        switch (edad) {
+            case 18:
+                imprime = "Acabas de cumplir la mayoría de edad";
+                break;
+            case 25:
+                imprime = "Eres un adulto";
+                break;
+            case 50:
+                imprime = "Eres maduro";
+                break;
+            default:
+                imprime = "Otra edad no contemplada";
+                break;
+        }
+
+        // Mostrar el mensaje en la página
+        document.addEventListener("DOMContentLoaded", function() {
+            var mensajeContainer = document.createElement("p");
+            mensajeContainer.textContent = imprime;
+            document.body.appendChild(mensajeContainer);
+        });
+    </script>
+</head>
+<body>
+    <!-- El mensaje se insertará aquí -->
+</body>
+</html>

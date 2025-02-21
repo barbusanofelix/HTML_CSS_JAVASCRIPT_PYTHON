@@ -1,0 +1,40 @@
+#titulo {
+    text-align: center;
+    border: solid 1px black;
+    font-size: 40px;
+    background-color: coral;
+    width: 50%;
+    /*50% de pagina*/
+    border-radius: 30px;
+    background: linear-gradient(top, blue, rgb(124, 210, 212));
+    background: -moz-linear-gradient(top, blue, rgb(124, 210, 212));
+    /*Mozilla Firefox*/
+    background: -webkit-linear-gradient(top, blue, rgb(124, 210, 212));
+    /*Chrome y Safari*/
+    background: -ms-linear-gradient(top, blue, rgb(124, 210, 212));
+    /*Internet Explorer*/
+    background: -o-linear-gradient(top, blue, rgb(124, 210, 212));
+    /*Opera*/
+    margin: 40px auto;
+    /* 40px arriba y abajo y auto lo centra horizontal*/
+    padding: 15px;
+    color: white;
+    /*color de la letra*/
+    text-shadow: 2px 2px 2px rgb(0, 0, 0);
+    /*sombra de la letra*/
+    box-shadow: grey 15px 15px 15px;
+    /*sombra de la caja*/
+
+
+}
+
+.imagen {
+
+    float: left;
+    width: 200px;
+    height: 130px;
+    padding: 2px;
+    border: solid 2px blue;
+    margin: 100px 4px;/*100px arriba y abajo y 4px a los lados*/
+    border-radius: 20px;
+}

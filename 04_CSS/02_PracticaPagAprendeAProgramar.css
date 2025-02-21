@@ -1,0 +1,556 @@
+/* Usar el * en tu archivo de estilos, indica que estás aplicando las reglas CSS a cada
+ elemento en tu documento HTML.*/
+* {
+    /* Hace que al añadir margin o padding a los elementos no crezcan más allá del 
+borde de su contenedor. En este modelo, las propiedades width y height incluyen el padding 
+y el border en el cálculo del tamaño del elemento. Esto significa que el tamaño total
+del elemento será igual al width y height especificados, y el contenido se ajustará
+para encajar dentro de esas dimensiones.
+*/
+    box-sizing: border-box;
+}
+
+/* smooth: Hace que al ir a un link en la misma pagina */
+/* hace que vaya lento. NO hace un salto inmediato*/
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    /* Cambio de estilo de letra*/
+    font-family: 'Roboto', sans-serif;
+    /* Quitamos el borde por defecto*/
+    margin: 0;
+    /* Al colocarlo las letras termian en el borde de la pagina */
+}
+
+/* Cambiamos el tamaño de las letras. Se noto cambio importante en los tamaños*/
+/* em : Tamaño relativo a la fuente aplicada*/
+h1 {
+    font-size: 3.5em;
+    /*3.5 veces el tamaño de la fuente*/
+}
+
+h2 {
+    font-size: 2.7em;
+}
+
+h3 {
+    font-size: 2em;
+}
+
+p {
+    font-size: 1.25em;
+}
+
+/* Modificamos el estilo de las listas desordenadas quitando los puntos que vienen 
+por defecto y tamaño de letra*/
+ul {
+    list-style: none;
+}
+
+li {
+    font-size: 1.25em;
+}
+
+/* Estilo de los botones */
+button {
+    font-size: 1.25em;
+    font-weight: bold;
+    /* Pone el texto en negrita*/
+    padding: 10px 30px;
+    /* 10px arriba y abajo y 30px a los lados*/
+    border-radius: 5px;
+    /* Borde redondeado*/
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    /*borde 2px grosor, sólido, de color negro con una opacidad del 30%. rgba*/
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    /* Sombra.2px en X, 2px en Y, 10px  desenfoque, color es negro con 50% opacidad.*/
+    color: white;
+    /* Color letras blanco */
+    background-color: blueviolet;
+    /* Color de fondo morado*/
+}
+
+/* Propiedad de botones al colocar el mouse sobre ellos*/
+button:hover {
+    background-color: rgb(101, 33, 165);
+    /* Ligeramente mas oscuro*/
+}
+
+.container {
+    /* ancho máximo del contenedor nunca será más ancho que 1400px */
+    max-width: 1400px;
+    margin: auto;
+    /* Centrar el contenedor horizontalmente.*/
+}
+
+
+.color-acento {
+    color: blueviolet;
+}
+
+header {
+    /* Pone un gris muy claro al header */
+    background-color: rgb(245, 245, 245);
+}
+
+/* Hasta aquí los esilos generales */
+
+
+/* Barra de navegación */
+header .logo {
+    margin: 0;
+    /*Se pega arriba*/
+    padding: 25px 30px;
+    /*25 arriba/abajo, 30- izq/der */
+    font-weight: bold;
+    color: blueviolet;
+    font-size: 1.6em;
+}
+
+/* Esto movio "Curso IBM" y los Links al centro del header*/
+header .container {
+    /* Ojo: .contanier separado de header */
+    display: flex;
+    /*Convierte el elemento .container en un contenedor flexible (flexbox).*/
+    flex-direction: column;
+    /* column hace que los elementos se coloquen uno debajo del otro*/
+    align-items: center;
+    /*los elementos se centrarán horizontalmente en el columna*/
+}
+
+/* Esto movio "Curso IBM" y los Links al centro del header*/
+/* Coloco un padding de 25px debajo*/
+
+header nav {
+    display: flex;
+    /*contenedor flexible (flexbox)  */
+    /*column hace que los enlaces se coloquen uno debajo del otro, en columna */
+    flex-direction: column;
+    text-align: center;
+    /*Centra el texto dentro de cada enlace horizontalmente*/
+    padding-bottom: 25px;
+    /*25px de margen abajo*/
+}
+
+/* Las a son los links */
+header a {
+    padding: 5px 12px;
+    /*5px arriba y abajo y 12px a los lados*/
+    text-decoration: none;
+    /*Quita el subrayado de los enlaces*/
+    font-weight: bold;
+    /*Texto en negrita*/
+    color: black;
+    /*Color de la letra*/
+}
+
+/*POne los links en morado al pasar el mouse sobre ellos  */
+header a:hover {
+    color: blueviolet;
+}
+
+#hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    height: 90vh;
+    /*Altura relativa a la pantalla */
+    /*Linear-gradient pone un mejor constraste con el texto*/
+    /*Si ponemos los 2 colores del gradiente igual pues no hay gradiente*/
+    /*pero estamos colocando un color sobre la imagen */
+    background-image: linear-gradient(0deg,
+            rgba(0, 0, 0, 0.5),
+            /*1er color del gradiente  */
+            rgba(0, 0, 0, 0.5)),
+        /*2do color del gradiente  */
+        url(/06_media/hero.jpg);
+
+    /*No repinta la imagen que puede causar extraños al cambiar el tamaño*/
+    background-repeat: no-repeat;
+    /*La imagen se ajusta al tamaño del contenedor */
+    background-size: cover;
+    /*La imagen se centra en el contenedor */
+    background-position: center center;
+}
+
+#hero h1 {
+    /*Texto Aprende a Programar */
+    color: rgb(255, 255, 255);
+}
+
+#hero button {
+    font-size: 1.75em;
+}
+
+#somos-Bejob .container {
+    /*Centra el parrafo en el contenedor  */
+    text-align: center;
+    /*200px arriba/abajo y 12px izq/der*/
+    padding: 200px 12px;
+
+}
+
+.color-acento {
+    /*Color azul violeta  de la etiqueta spam color-acento*/
+    color: blueviolet;
+}
+
+#nuestros-programas {
+    /*Ponemos un color muy oscuro */
+    background-color: rgb(30, 30, 30);
+    color: white;
+    /*Texto en blanco  */
+}
+
+#nuestros-programas .container {
+    /*Centra el contenedor */
+    text-align: center;
+    /*200px arriba/abajo y 12px izq/der*/
+    padding: 150px 12px;
+}
+
+#nuestros-programas p {
+    display: none;
+    /*Oculta los parrafo */
+
+}
+
+#nuestros-programas h2 {
+    margin-top: 0px;
+    /*Quita el margen de arriba */
+    font-size: 3.2em;
+}
+
+/* Aplicara estas propiedades a todas las clase cursos */
+#nuestros-programas .cursos {
+    /*imagen de fondo debe centrarse horizontal y verticalmente dentro del elemento. */
+    background-position: center center;
+    /*Escala la imagen para cubrir completamente el área del elemento, manteniendo 
+   su relación de aspecto (proporciones).*/
+    background-size: cover;
+    padding: 50px;
+    /*50px arriba/abajo y 0px izq/der*/
+    ;
+    margin: 20px;
+    /*12px arriba/abajo y 0px izq/der*/
+    border-radius: 15px;
+}
+
+/*Selecciona la primera clase cursos */
+.cursos:first-child {
+    background-image: linear-gradient(0deg,
+            rgba(0, 0, 0, 0.5),
+            /*1er color del gradiente  */
+            rgba(0, 0, 0, 0.5)),
+        /*2do color del gradiente  */
+        url(/06_media/front-end.jpg);
+}
+
+/*Selecciona la segunda clase cursos */
+.cursos:nth-child(2) {
+    background-image: linear-gradient(0deg,
+            rgba(0, 0, 0, 0.5),
+            /*1er color del gradiente  */
+            rgba(0, 0, 0, 0.5)),
+        /*2do color del gradiente  */
+        url(/06_media/full-stack.jpg);
+}
+
+.cursos:nth-child(3) {
+    background-image: linear-gradient(0deg,
+            rgba(0, 0, 0, 0.5),
+            /*1er color del gradiente  */
+            rgba(0, 0, 0, 0.5)),
+        /*2do color del gradiente  */
+        url(/06_media/python.jpg);
+}
+
+#caracteristicas .container {
+    text-align: center;
+    padding: 200px 12px;
+}
+
+#caracteristicas li {
+    font-weight: bold;
+    margin: 16px 0px;
+}
+
+#final {
+    /* convertir a elementos en linea display:flex*/
+    display: flex;
+    /* Lo pasa a una columna */
+    /* El boton pasa a ocupar todo el ancho de la pagina*/
+    flex-direction: column;
+    /* Aàrentmente no hace nada */
+    justify-content: center;
+    /* Con Align-items: center; y 
+ justify-content:center lo acomoda
+ los coloca bien centrado y de tamaño correcto */
+    align-items: center;
+    text-align: center;
+    /*Centra el texto pero parece que no pasa nada*/
+    background-color: rgb(30, 30, 30);
+    color: white;
+    height: 80vh;
+    /*Altura relativa a la pantalla */
+}
+
+#final h2 {
+    /* Hace que el texto se vea mas pequeño a medida que 
+    la pantalla se hace mas pequeña */
+    font-size: 9vw;
+    /*9 veces el tamaño de la fuente*/
+}
+
+#final button {
+    /*viewport width" (ancho de la ventana gráfica).  */
+    font-size: 5vw;
+    /*2.5 veces el tamaño de la fuente*/
+}
+
+footer {
+    background-color: rgb(230, 230, 230);
+
+}
+
+footer .container {
+    height: 150px;
+    /*Coloquemos el texto en centro abajo */
+    display: flex;
+    /*Convierte el contenedor en flexbox*/
+    justify-content: center;
+    /*Centra los elementos horizontalmente*/
+    /* Coloca el texto que estaba centrado en la parte de abajo */
+    align-items: end;
+}
+
+
+footer p {
+    margin: 0px;
+    /* Color grisaceo */
+    color: rgb(100, 100, 100);
+    padding: 12px;
+    /*12px arriba/abajo y 0px izq/der*/
+}
+
+/* Hasta aquí los estilos de la página web para moviles*/
+/* Ahora vamos a hacer que la página sea responsive */
+/* Hasta ahora hemos hecho que la página se vea bien en pantallas pequeñas*/
+/* Ahora vamos a hacer que la página se vea bien en pantallas grandes */
+/* Para ello vamos a usar media queries */
+/* Media queries nos permiten aplicar estilos CSS basados en características del dispositivo */
+/* como la anchura de la ventana del navegador */
+/* Vamos a hacer que la página se vea bien en pantallas grandes */
+@media (min-width: 720px) {
+
+    /*SI LA PANTALLA >720px aplicará los siguientes estilos*/
+    /*En esta parte hay que usar los mismos selectores anteriores para referirnos a
+los mismos elementos  */
+    header {
+        position: fixed;
+        /*Fija el header en la parte superior de la página */
+        width: 100%;
+        /*Ocupa todo el ancho de la página */
+    }
+
+    header .container {
+        /*Asi lo llame mas arriba */
+        flex-direction: row;
+        /*Los elementos se colocan uno al lado del otro */
+        /*Poner Curso IBM y los 3 elementos del NAV en los extremos horizontales */
+        justify-content: space-between;
+        /*Los elementos se colocan uno al lado del otro */
+    }
+
+
+    header nav {
+        flex-direction: row;
+        /*Los elementos se colocan uno al lado del otro */
+        padding-bottom: 0px;
+        /*Quita el margen de abajo */
+        /*Separamos un poco el menu de navegacion de la derecha */
+        padding-right: 20px;
+    }
+
+    #hero h1 {
+        font-size: 5em;
+    }
+
+    #somos-Bejob .container {
+        /*Para ver la foto y el texto en la misma linea aplicamos */
+        display: flex;
+        /*Convertir a flexbox */
+        /* justify-content: center;*/
+        /*Centra la foto y el parrafo pero si colocamos space evenly es mejor  */
+        justify-content: space-evenly;
+    }
+
+    #somos-Bejob .texto {
+        width: 50%;
+        /*Ocupa la mitad del contenedor */
+        text-align: initial;
+        padding-left: 30px;
+        /*0px arriba/abajo y 30-izq y derecha*/
+        /*Para mantener centrado el Texto que lo forma Somos Woman4IT y el parrafo     */
+        display: flex;
+        /*Lo convertimos en bloques y se ven uno junto al otro */
+        flex-direction: column;
+        /*Los pone en columna    */
+        justify-content: center;
+        /*Los alinea en el centro de la columna*/
+        max-width: 600px;
+    }
+
+    #somos-Bejob h2 {
+        /*Le quita el margen superior a "Somos Woman4IT" y se centra mejor verticalmente*/
+        margin-top: 0px;
+    }
+
+    #somos-Bejob .img-container {
+        /*Con esta linea aun no aparece la imagen */
+        background-image:
+            /*Solo la imagen sin gradiente porque no tiene texto encima*/
+            url(/06_media/somos-proya.jpg);
+        /*Tampoco aparece despues de cover */
+        background-size: cover;
+        background-position: center center;
+        /*No aparece imagen*/
+        width: 400px;
+        height: 500px;
+        /*Aqui es cuando aparecio la imagen */
+    }
+
+    #nuestros-programas .programas {
+        /*Afecta los 3 cursos   */
+        display: flex;
+        /* Los convierte en bloques horizontales*/
+        justify-content: center;
+        /*Los mantiene centrados   */
+    }
+
+    #nuestros-programas p {
+        display: block;
+        /*Muestra los parrafos*/
+        margin-bottom: 30px;
+        /*Separa un poco mas el final de los parrafos vs el boton */
+    }
+
+    #nuestros-programas .cursos {
+        padding: 50px;
+        /*Al colocar el padding se compacto mas*/
+        background-size: 100% 150px;
+        /*Al colocar 2 valores son ancho y alto, aunque este en 2 unidades distintas    */
+        background-repeat: no-repeat;
+        /*No repite la imagen */
+        background-position-y: 0;
+        background-color: rgba(50, 50, 50, 0.5);
+        /*Le colocamos color de fondo en gris*/
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        /* Añade sombra a cada recuadro de cursos*/
+    }
+
+    #nuestros-programas h2 {
+        font-size: 4em;
+        /*Ajustamos el tamaño de "Nuestros Programas"*/
+    }
+
+    #nuestros-programas h3 {
+        margin-top: 0px;
+        /*Quitamos el margen del titulo*/
+    }
+
+
+    .cursos:first-child {
+        background-image: linear-gradient(0deg,
+                rgba(0, 0, 0, 0.5),
+                /*1er color del gradiente  */
+                rgba(0, 0, 0, 0.5)),
+            /*2do color del gradiente  */
+            url(/06_media/front-end-cropped.jpg);
+    }
+
+    /*Selecciona la segunda clase cursos */
+    .cursos:nth-child(2) {
+        background-image: linear-gradient(0deg,
+                rgba(0, 0, 0, 0.5),
+                /*1er color del gradiente  */
+                rgba(0, 0, 0, 0.5)),
+            /*2do color del gradiente  */
+            url(/06_media/full-stack-cropped.jpg);
+    }
+
+    .cursos:nth-child(3) {
+        background-image: linear-gradient(0deg,
+                rgba(0, 0, 0, 0.5),
+                /*1er color del gradiente  */
+                rgba(0, 0, 0, 0.5)),
+            /*2do color del gradiente  */
+            url(/06_media/python-cropped.jpg);
+    }
+
+    /*Lo siguiente se podria hacer mas facil como se hizo
+    #somos-Bejob .container {} en el cual hay un div para 
+    la foto y otro para el texto asi que se organizan 
+    mas facil*/
+    #caracteristicas {
+        background-image: url("/06_media/background-2.jpeg");
+        background-size: 500px 400px;
+        /*Ajusta el tamaño de la imagen*/
+        background-repeat: no-repeat;
+        /*No repite la imagen*/
+        background-position: calc(100vw - 430px) 90px;
+        /*Ajustamos la posicion de la imagen*/
+        /*primero colocamos 0x y unos 120px en y y vamos centrando la imagen en relacion al texto.*/
+        /*Termine con y en 90px */
+        /*Al agrandar la pantalla en x hay que restar al total unos 500px y eso se hace con calc(100vw - 500px) */
+        /*OJo, para que funcione el calc() debe haber espacio con el signo menos, asi: calc(100vw - 500px)*/
+
+    }
+
+
+    #caracteristicas .container {
+        text-align: initial;
+        /*Coloca los <li> a la izquierda   */
+
+    }
+
+    #caracteristicas ul {
+        margin-left: 100px;
+        /*Colocamos un margen izq a la lista*/
+    }
+    #caracteristicas li{
+        font-size: 1.35em;
+    }
+
+    #final h2{
+        font-size: 5em;
+    }
+
+    #final button{
+        font-size: 2em;
+
+    }
+
+    footer .container{
+            justify-content: flex-end; /*Lo ponemos */
+            
+    }
+}
+
+/*Esta @media es para pantallas >1200px*/
+/*Es para ajustar la posicion de la imagen junto a los <li>*/
+/*La idea es que no se monte la imagen sobre el texto*/
+@media (min-width:1180px){
+#caracteristicas{
+    background-position: calc(100vw - 800px);
+}
+
+#caracteristicas li{
+    font-size: 2em;
+}
+
+}

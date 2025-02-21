@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensaje Personalizado</title>
+    <style>
+        h1 {
+            color: blue;
+            text-align: center;
+        }
+        p {
+            font-size: 1.2em;
+            text-align: center;
+        }
+        #mensaje-container {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input {
+            padding: 5px;
+            margin: 5px;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Formulario para ingresar nombre y apellido -->
+    <form id="formulario">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required>
+        <br>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <!-- Contenedor para el mensaje personalizado -->
+    <div id="mensaje-container">
+        <!-- El mensaje se insertará aquí -->
+    </div>
+
+    <script>
+        // Capturar el evento de envío del formulario
+        document.getElementById("formulario").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe
+
+            // Obtener los valores de los campos
+            var nombre = document.getElementById("nombre").value;
+            var apellido = document.getElementById("apellido").value;
+
+            // Validar que se introdujeron datos
+            if (!nombre || !apellido) {
+                alert("Debes introducir tu nombre y apellido.");
+                return; // Detener la ejecución si no hay datos
+            }
+
+            // Crear el mensaje personalizado
+            var mensaje = `<h1>¡Hola, ${nombre} ${apellido}!</h1>
+                           <p>Que tengas un feliz día.</p>`;
+
+            // Insertar el mensaje en el contenedor específico
+            document.getElementById("mensaje-container").innerHTML = mensaje;
+        });
+    </script>
+</body>
+</html>

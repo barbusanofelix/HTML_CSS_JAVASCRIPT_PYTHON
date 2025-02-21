@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir elementos a arreglo y eliminar "salir"</title>
+</head>
+<body>
+    <script>
+    var trabajadores = new Array(); // Definir un arreglo vacío
+	var contador = 0; // Contador para almacenar la posición de los elementos   
+	var persona;      // Variable para almacenar el nombre de la persona	
+
+	while (persona != "salir") {     // Mientras el usuario no escriba "salir"
+		persona = prompt("Introduce nombre"); // Solicitar el nombre de la persona
+		trabajadores[contador] = persona;    // Almacenar el nombre en el arreglo
+		contador++;                       // Incrementar el contador
+	}
+    // El array sale incluyendo salir asi que hay que eliminar el ultimo elemento
+    // Comprobamos que el array contiene "salir"
+    document.write("El arreglo creado fue :"+trabajadores); // Mostrar el arreglo completo
+    document.write("<br>");
+	document.write("Ahora eliminaremos el ultimo elemento del array que es :"+trabajadores[trabajadores.length-1]); // Mostrar el arreglo completo
+	document.write("<br>");
+	trabajadores.pop(); // Eliminar el último elemento del arreglo, es decir, salir
+	document.write("<br>");
+	document.write("El arreglo sin salir es :"+trabajadores); // Mostrar el arreglo completo
+	document.write("<br>");
+	
+	// Recorrer el arreglo y mostrar los elementos almacenados
+
+	
+	for (var i = 0; i <trabajadores.length; i++) {
+		document.write(trabajadores[i] + "<br>");
+	}
+
+    </script>
+    
+</body>
+</html>

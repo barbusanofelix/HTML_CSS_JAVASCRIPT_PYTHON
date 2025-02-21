@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+    <!--Para correr boton derecho sobre el nombre del archivo -->
+    <!--Selecciona Open with Five Server y te abrira una web local-->
+    <!--FIVE SERVER ES UNA EXTENSION QUE INSTALE -->
+<html lang="es">
+    <!--Tambien se puede correr con boton derecho sobre el archivo-->
+    <!--Reveal in File Explorer ( Te lleva a la ubicacion del archivo)-->
+    <!--Btn derecho - correr con - Chrome -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página con JavaScript</title>
+    <script>
+        var precio = 30000;
+        var dinero = prompt("Introduce cuánto dinero tienes: ");
+        var edad = prompt("Introduce tu edad:");
+
+        if ((precio < dinero) && (edad >= 18)) {
+            alert("Te puedes comprar el coche");
+        } else if ((precio < dinero) && (edad < 18)) {
+            alert("Tienes el dinero pero no la edad");
+        } else if ((precio > dinero) && (edad >= 18)) {
+            alert("Tienes la edad pero no el dinero");
+        } else if ((precio > dinero) && (edad < 18)) {
+            alert("Ni dinero ni edad");
+        }
+    </script>
+</head>
+<body>
+    <h1>¡Hola, mundo!</h1>
+    <p>Este es un ejemplo de cómo incluir JavaScript en HTML.</p>
+</body>
+</html>

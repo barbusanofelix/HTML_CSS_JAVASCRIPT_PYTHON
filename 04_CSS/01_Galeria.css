@@ -1,0 +1,65 @@
+
+#titulo{
+    /* Alineamos el titulo en el centro de h1*/
+    text-align: center; /* La alineacion es respecto a la caja h1 */
+    /* Cambiamos el tamaño del texto */
+    font-size: 25px;
+    /* El Background se vera naranja pero al colocar las de Background se vera azul */
+    background-color:coral;
+    /* Añadimos estilos para que se vea bien en diferentes navegadores*/
+    /* para añadir una funcion segun el navegador */
+    background: linear-gradient(top,blue, rgb(124, 210,212));
+    /* -webkit- es para Chrome y Safari */
+    background: -webkit-linear-gradient(top,blue, rgb(124, 210,212));
+    /* -ms- es para Internet Explorer */
+    background: -ms-linear-gradient(top,blue, rgb(124, 210,212));
+    /* -o- es para Opera */
+    background: -o-linear-gradient(top,blue, rgb(124, 210,212));
+    /* -moz- es para Mozilla Firefox */
+    background: -moz-linear-gradient(top,blue, rgb(124, 210,212));
+    /* El titulo es tipo caja y ocupa todo el ancho de la pagina */
+    /* siqueremos cambiar el ancho de la caja usamos with */
+    width: 50%;  /* 50% del ancho de la pagina pero se va a la izquieda de la pagina */
+    /*Podemos colocarle los bordes redondeados */
+    border-radius: 10px;
+    /* Añadimos estilos para que se vea bien en diferentes navegadores*/
+    /*-webkit- es para Chrome y Safari */
+    -webkit-border-radius:10px ;
+    /*-moz- es para Mozilla Firefox */
+    -moz-border-radius:14px ;
+    /*-ms- es para Internet Explorer */
+    -ms-border-radius:12px ;
+    /*-o- es para Opera */
+    -o-border-radius:11px ;
+    /* Añadimos un margen para que no este pegado a los bordes de la pagina */
+    margin: 40px auto;  /* 40px de margen arriba y abajo y auto para que se centre horizontal */
+    /* Colocamos el color del texto en blanco */
+    color: white;
+    /* Añadimos un padding para que el texto no este pegado a los bordes de la caja */  
+    /* padding: es la distancia entre el texto y el borde de la caja */
+    padding: 20px;
+    /* Añadimos un sombreado al texto */
+    /* Primer valor eje x ( + derecha - izquierda),   Segundo valor eje y ( + abajo - arriba)
+    /* Tercer valor es la difuminacion ( hasta <=5px refleja el objeto) y el cuarto valor es el color */
+    text-shadow: 5px 15px 5px black;
+    /* Añadimos un sombreado exterior a la caja, es decir, al recipiente que contiene el texto y color */
+    box-shadow: 5px 15px 5px black;
+
+}
+
+.contenedorFotos {
+    display: flex; /* Convierte el contenedor en flexbox */
+    flex-wrap: wrap; /* Permite que los elementos se ajusten a varias líneas */
+    justify-content: center; /* Centra las imágenes horizontalmente */
+    align-items: center; /* Centra las imágenes verticalmente */
+    /*gap: 20px; /* Espacio entre las imágenes */
+    padding: 20px; /* Espacio alrededor del contenedor */
+}
+
+.imagen {
+    width: 50px;
+    height: 40px; /* El alto se ajusta automáticamente */
+    object-fit: cover; /* La imagen cubre el contenedor sin deformarse */
+    border: 1px solid blue;
+    margin: 0; /* Elimina los márgenes individuales */
+}

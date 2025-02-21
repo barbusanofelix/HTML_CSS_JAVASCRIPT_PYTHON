@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- Pagina pide Nombre y Apellido -->
+<!-- Aqui coloque el script en el Head pero Pagina no hace nada  -->
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensaje Personalizado</title>
+    <style>
+        h1 {
+            color: blue;
+            text-align: center;
+        }
+        p {
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+    <script>
+        // Solicitar nombre y apellido al usuario
+        var nombre = prompt("Introduce tu nombre:");
+        var apellido = prompt("Introduce tu apellido:");
+
+        // Validar que se introdujeron datos
+        if (!nombre || !apellido) {
+            alert("Debes introducir tu nombre y apellido.");
+            location.reload(); // Recargar la página para volver a solicitar los datos
+        }
+
+        // Crear el mensaje personalizado
+        var mensaje = `<h1>¡Hola, ${nombre} ${apellido}!</h1>
+                       <p>Que tengas un feliz día.</p>`;
+
+        // Insertar el mensaje en el body de la página
+        document.body.innerHTML = mensaje;
+    </script>
+</head>
+<body>
+    <!-- El mensaje se insertará aquí -->
+
+    
+</body>
+</html>
