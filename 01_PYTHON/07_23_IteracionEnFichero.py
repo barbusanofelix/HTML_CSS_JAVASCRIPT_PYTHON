@@ -43,5 +43,9 @@ if linea == "":
 else:    
     print(linea)
 
+print('Ahora con for in ')
+# lo sigueinte es lo mismo que el codigo anterio pues recorre el archovo short_zen.txt'
+for linea in open('short_zen.txt'): # Por defecto el archivo se abre en modo lectura ( 'r' )
+    print(linea.upper(), end='')
 
-    # QUEDE EN PAGINA 26
+f.close() # Cierra el fichero
