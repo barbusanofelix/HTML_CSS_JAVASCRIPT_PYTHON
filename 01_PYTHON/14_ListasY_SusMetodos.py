@@ -211,7 +211,7 @@ la[2][2] = 'zz'
 print(la)  #[1, 'z', [31, 32, 'zz']]
 
 
-print(1b)  #[1, 2, [31, 32, 'zz']]      # Copia plana solo copia elementos de 1er nivel
+print(lb)  #[1, 2, [31, 32, 'zz']]      # Copia plana solo copia elementos de 1er nivel
 
 
 print(lc)  # [1, 2, [31, 32, 33]]       # Copia profunda copia a todos los niveles
