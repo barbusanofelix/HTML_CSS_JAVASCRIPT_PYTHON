@@ -23,7 +23,7 @@ def indexador(objeto, indice):  # Simplemente recibira un objeto
     return objeto[indice]       # Devuelve la posicion en el objeto, segun el indice. 
 
 try:
-    print(indexador("Python",6))    # Le pasamos Python e indice 0, que devolvera la posicion Cero de Python, es decir , la P
+    print(indexador("Python",7))    # Le pasamos Python e indice 0, que devolvera la posicion Cero de Python, es decir , la P
     # El try la manda al except, en caso de erro
 except Exception as e:    # NO RECOMENDADO DEJARLO TAN ABIERTO 
     print()

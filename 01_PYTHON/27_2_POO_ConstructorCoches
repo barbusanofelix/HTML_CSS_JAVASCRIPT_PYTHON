@@ -1,0 +1,38 @@
+
+class Coche():
+
+    # Declaración del constructor con parámetros
+    def __init__(self, largo, ancho, ruedas, peso, color, is_enMarcha):
+        self.largo=largo
+        self.ancho = ancho
+        self.ruedas = ruedas
+        self.peso = peso
+        self.color = color
+        self.is_enMarcha = is_enMarcha
+        
+       
+        
+        
+# Declaración de métodos
+    def arrancar(self): #self hace referencia a la instancia de clase.
+        self.is_enMarcha = True #Es como     si pusiésemos miCoche.is_enMarcha = True
+        
+    def estado(self):
+        if (self.is_enMarcha == True):
+            return "El coche está arrancado"
+        else:
+            return "El coche está parado"
+
+# Declaración de una instancia de clase, objeto de clase o ejemplar de clase.
+coche_1 = Coche(400,200,7,800,"Rojo",False)
+coche_2 = Coche(420, 150, 4, 1500,"verde", False)
+
+
+# Acceso a un atributo de la clase Coche. Nomenclatura del punto.
+coche_1.ruedas = 7
+print("El largo del coche es de" ,coche_1.largo, "cm.")
+coche_1.arrancar()
+print(coche_1.estado())
+# Acceso a un método de la clase Coche. Nomenclatura del punto.
+print("El coche está arrancado:" ,
+coche_1.arrancar())
