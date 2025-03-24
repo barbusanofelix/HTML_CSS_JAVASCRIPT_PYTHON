@@ -1,0 +1,239 @@
+
+'''
+Autor       : Felix Concepcion Lopez Barbusano
+mail        : barbusanofelix@gmail.com
+
+Proyecto Final del Curso:  Iniciación a la programación: Python Enero-Marzo 2025.
+
+SISTEMA DE GESTION DE BIBLIOTECA. 
+Tenemos libros ( representados por la clase Libro, donde sus atributos son titulo, autor, ISBN y disponible ) que forman parte de un inventario 
+de una Biblioteca, representado por la clase Biblioteca. 
+Dentro de Biblioteca inicializamos una lista (inventario) y se cargan 5 libros para tener una data inicial. 
+    inventario es una lista oculta para el usuario, pero se actualiza internamente.
+    Cada libro es un objeto Libro, y cada acción (prestar, devolver, mostrar) actúa sobre estos objetos.
+    
+El codigo esta comentado con bastante detalle y al final del codigo hay un comentario macro del menu.
+'''
+from operator import attrgetter         # Para ser usado en ordenar la lista de inventario de libros
+
+class Libro:                                                            #* Clase Libro 
+    #* Cosntructor.
+    def __init__(self, titulo: str, autor: str, isbn: str):
+        #* Inicializa un libro con título, autor, ISBN y disponible por defecto.
+        self.titulo = titulo
+        self.autor = autor
+        self.isbn = isbn
+        self.disponible = True                                          #* Por defecto, cuando se crea una instancia, disponible=True
+
+    def prestar(self):                                                  #* Basicamente cambia el atributo 'disponible' de True -> False.
+        #* libro que este disponible ( disponible=True) cambiará su status a disponible = False ( Prestado)
+        if self.disponible:
+            #* Al guardar la lista inventario, por ser objetos mutables, se guarda la referencia a dichos objetos. Al cambiar los atributos en la memoria ... 
+            #* tambien se cambia  la referencia del objeto en la lista y NO es necesario hacer un cambio explicito en la lista inventario.
+            self.disponible = False                                     #* Al cambiar en memoria el atributo disponible tambien lo hace en la lista inventario.
+            print(f"\nEl libro {self.isbn} - {self.titulo} - {self.autor}' ha sido prestado.")  #* Imprime datos del libro prestado.
+        else:       
+            print(f"\nEl libro {self.isbn} - {self.titulo} - {self.autor}' YA ESTÁ PRESTADO.")  #* Si ya está prestado, pues lo notifica al usuario.  
+
+    def devolver(self):
+        #* libro que no este disponible ( disponible=False -> prestado ) cambiará su status a disponible = True
+        if not self.disponible:                                         #* Si disponible es False
+            self.disponible = True                                      #* Aqui hace el cambio del atributo 'disponible' de la instancia del libro y lo hace tambien en la lista.
+            print(f"\nEl libro {self.isbn} - {self.titulo} - {self.autor}' ha sido devuelto.")       #* Mensaje de confirmacion.
+        else:
+            print(f"\nEl libro {self.isbn} - {self.titulo} - {self.autor}' YA ESTABA DISPONIBLE.")   #* Mensaje de error: Ya habia sido devuelto.
+
+    def __str__(self):                  #* Este metodo se ejecuta cada vez que hacemos un print de instancia Libro
+        #* Muestra la información de un libro: Su titulo, Autor, ISBN y si esta disponible ó NO.
+        if self.disponible:             #* Traducimos el disponible=True o False a que muestre "Disponible" o "Prestado"
+            estado="Disponible" 
+        else:
+            estado='\033[1m'+'Prestado'+'\033[0m'      #* '\033[1m': Codigo de escape que activa negritas y '\033[0m' la desactiva. Resultado : Prestado se mostrará en negrita 
+        return f"{self.titulo:<45}  {self.autor:<25}  {self.isbn:<15}  {estado:<15}"  #* Imprime los atributos de un objeto Libro.
+
+# Bibliote es la clase que gestiona la carga de 5 libros al inventario y maneja el inventario de libros
+class Biblioteca:
+    #* Cosntructor: Inicializa la lista inventario y carga 5 libros en la lista inventario 
+    def __init__(self):
+        #* Inicializa la biblioteca (b) con una lista inventario vacia ( [] ) que la llenamos con la funcion _cargar_libros_iniciales() 
+        self.inventario = []                                #* Contendra el inventario de libros. Inicia vacio.
+        self._cargar_libros_iniciales()                     #* Carga inicial de 5 libros
+        self.mostrar()                                      #* Muestra los 5 libros cargados, al no pasar parametro a mostrar()
+
+    def _cargar_libros_iniciales(self):    
+        libros_iniciales = [                                #* Es un lista que contiene las tuplas con los 5 libros iniciales
+            ("Cien años de soledad", "Gabriel García Márquez", "12345"),
+            ("Guerra y Paz", "Lev Tolstoi", "23456"),
+            ("Las Aventuras de Sherlock Holmes", "Arthur Conan Doyle", "34567"),
+            ("Don Quijote de la Mancha", "Miguel de Cervantes", "45678"),
+            ("La vuelta al mundo en ochenta días", "Julio Verne", "56789"),
+           ]
+        print("\nSe hizo carga automática de 5 libros en el inventario de la Biblioteca.")    
+        for titulo, autor, isbn in libros_iniciales:    #* Recorremos la lista inicial para el titulo, autor e ISBN. 
+            self.agregar(isbn, titulo, autor,True)      #* agregar() convierte libros_iniciales en objetos de la Clase Libro. El True es para identificar la carga inicial.
+        
+    def agregar(self, isbn, titulo=None, autor=None, carga_inicial=False):
+        if self.buscar(isbn):                           #* Verificamos si el libro ya existe
+            print(f"Ya existe el libro con ISBN {isbn}.")
+            return
+        if titulo is None:                              #* Si no existe el libro pedimos el titulo y autor
+            titulo = input("Ingrese el título del libro: ")
+        if autor is None:
+            autor = input("Ingrese el autor del libro: ")
+        
+        nuevo_libro = Libro(titulo, autor, isbn)        #* Creamos una instacia de Libro 
+        self.inventario.append(nuevo_libro)             #* Agregamos el libro a la lista inventario
+        self.inventario.sort(key=attrgetter("titulo"))  #* Ordenamos la lista alfabeticamente por el titulo de los libros
+        
+        if not carga_inicial:                           # Cuando cargamos 1 libro, la carga_inicial=False, asi que mostrará el libro agregado
+            self.mostrar(isbn)                          # LLama el metodo mostrar(isbn), que mostrará los datos del libro agregado.
+
+    def buscar(self, isbn):
+        #* Busca un libro por ISBN y devuelve el objeto libro o None
+        for libro in self.inventario:                   #* Recorre, libro a libro, la lista inventario (Que tiene objetos Libro)
+            if libro.isbn == isbn:                      #* Verifica si el ISBN, del libro en la lista , es igual al isbn recibido. 
+                return libro                            #* Al encontrar el libro en la lista inventario retorna el objeto Libro encntrado
+        return None                                     #* Si no encuentra el Libro con el isbn proporcionado retorna None.
+
+    def prestar(self, isbn):
+        #* Presta un libro si está disponible.
+        libro = self.buscar(isbn)   #* Para prestar un libro, este debe existir en el inventario asi que lo buscamos.
+        if libro:                   #* Si libro fue encontrado ( libro contiene los datos del libro y "libro:" es True )
+            libro.prestar()         #* Para modificar el atributo "disponible" a False, llamamos el metodo prestar() de Clase Libro
+        else:
+            print(f"No se encontró el libro con ISBN: {isbn}. Verifica el ISBN")    #* libro=None -> No existe un libro con el ISBN suministrado
+
+    def devolver(self, isbn):
+        #* Devuelve un libro si estaba prestado ( atributo disponible=False). Comentarios similares a prestar()
+        libro = self.buscar(isbn)   
+        if libro:                   
+            libro.devolver()        
+        else:
+            print(f"No se encontró el libro con ISBN: {isbn}. Verifica el ISBN")    
+
+    def mostrar(self, isbn=None):
+        if not self.inventario:                         #En caso de tener inventario =0
+            print("NO HAY LIBROS EN LA BIBLIOTECA.")
+            return
+
+        if isbn:            #* Si llega un isbn es para un libro agregado ( uno en particular ) y sino es para imprimir la lista completa
+            print("\nDatos del libro agregado")
+        else:
+            print("\nListado de libros:")
+            
+        print(f"\n{'Título':<45}  {'Autor':<25}  {'ISBN':<15}  {'Disponibilidad':<15}\n{'-'*105}")  # Imprimir la cabecera comun
+        
+        if isbn:                #* En caso de recibir un isbn, como la lista la ordene,  hay que hacer una busqueda del libro             
+            libro = self.buscar(isbn)
+            if libro:
+                print(libro)    #* Imprime un libro en particular. Va al metodo __str__ de la clase Libro
+        else:
+            for libro in self.inventario:   # Al no recibir un isbn, queremos imprimir la lista completa  asi que la recorremos libro x libro  
+                print(libro)
+            
+    def solicitar_isbn(self, mensaje: str):     #* Función que controla que el formato del isbn tenga 5 a 13 digitos ( para este programa )
+        """Solicita un ISBN y valida que sea de 5 a 13 digitos, sin letras."""
+        while True:
+            isbn = input(mensaje).strip()               #Recibe el isbn y le quita los espacios vacios.
+            if not isbn:
+                print("El ISBN no puede estar vacío.")
+                continue
+            if (5<=len(isbn) <= 13) and isbn.isdigit():  # Verifica longitud y si son dígitos
+                return isbn
+            elif not isbn.isdigit():
+                print("El ISBN debe ser solo dígitos")
+            else:
+                print("El ISBN debe tener 5 a 13 dígitos.")
+
+#? La función mostrar_menu() contiene las opcione del programa. 
+def mostrar_menu():
+    #* Creamos una instancia de la Clase Biblioteca, fuera del ciclo while para que sea accesible a todas las opciones del menu
+    b = Biblioteca()  #* Instancia única: b de la clase Biblioteca.
+
+    while True:      #* Ciclo que no dejará de repetirse hasta tomar la opcion 5, es decir Salida
+        print("\n Menú Sistema de Gestión de Biblioteca:\n")
+        print(" 1.  Agregar un nuevo libro")
+        print(" 2.  Prestar un libro")
+        print(" 3.  Devolver un libro")
+        print(" 4.  Mostrar todos los libros")
+        print(" 5.  Salir")
+        #* Recibimos una opcion por pantalla
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":                                                   #* Añadir un libro. 
+            isbn = b.solicitar_isbn("Ingrese el ISBN del libro: ")          #* Inicalmente pedidmos solo el ISBN para verificar si existe. 
+            b.agregar(isbn)                                                 #* LLamar metodo agregar() de instancia biblioteca ( b ). Si ISBN no existe, pedira Titulo y autor.
+        elif opcion == "2":                                                 #* Prestar un libro, dando el isbn
+            isbn = b.solicitar_isbn("Ingrese el ISBN del libro a prestar: ")
+            b.prestar(isbn)                                                 #* LLama metodo prestar de instancia biblioteca 
+        elif opcion == "3":                                                 #* Devolver un libro usando el isbn para localizarlo
+            isbn = b.solicitar_isbn("Ingrese el ISBN del libro a devolver: ")
+            b.devolver(isbn)                                                #* Llama al metodo devolver de la instancia biblioteca 
+        elif opcion == "4":                                                 #* Opcion para mostrar todos los libros.
+            b.mostrar()                                                     #* LLama al metodo Mostrar de la instancia Biblioteca
+        elif opcion == "5":                                                 #* Salir del Programa
+            print("\n Programa terminado !!!\n")
+            break                                                           #* con break, rompe el ciclo while True y culmina el programa
+        else:                                                               #* Al no introducir 1, 2, 3, 4 ó 5, imprime el mensaje y repite el ciclo.
+            print("\n  Opción inválida. Elija el número de la opcion, entre a 1 a 5. \n")
+
+#* AQUI EL CORAZON DEL PROGRAMA: PUNTO DE ENTRADA.
+if __name__ == "__main__":      #* Controla el punto de entrada del Programa. Como este programa es el scrpt principal el name es main.
+    mostrar_menu()                      #* Ejecuta la funcion mostrar_menu(), que controla todo el flujo del programa
+
+'''
+Flujo del programa en cada opción del menú
+Cuando se ejecuta mostrar_menu(), lo primero que hace el programa es:
+
+Crear una única instancia de Biblioteca, la cual:
+Inicializa inventario como una lista vacía.
+Llama a _cargar_libros_iniciales(), que agrega 5 libros automáticamente.
+Después, entra en un bucle donde espera que el usuario seleccione una opción.
+
+Qué sucede en cada opción del menú.
+
+Opción 1: Agregar un nuevo libro
+Se pide al usuario que ingrese un ISBN.
+El programa llama el metodo b.agregar(isbn): 
+    agregar(isbn) busca si el ISBN ya existe llamando a buscar(isbn).
+        buscar(isbn) recorre la lista inventario y:
+            Si encuentra el libro, devuelve el objeto Libro → Se muestra un mensaje de que ya existe.
+            Si no lo encuentra, devuelve None → Continúa agregando el libro. Se le solicita el título y el autor.
+                Se crea una instancia de Libro:nuevo_libro = Libro(titulo, autor, isbn). 
+                Se añade el libro a la lista: self.inventario.append(nuevo_libro)            
+                Se muestra un mensaje confirmando que el libro ha sido agregado al inventario. 
+
+Opción 2: Prestar un libro
+Se pide al usuario que ingrese un ISBN.
+El programa llama a b.prestar(isbn)
+    prestar(isbn) busca el libro con buscar(isbn).
+        buscar(isbn) revisa la lista inventario: Si no lo encuentra, devuelve None.
+            Si encuentra el libro, devuelve su instancia. 
+                Se llama a libro.prestar() (De la clase Libro)
+                    Dentro de Libro.prestar(), se revisa self.disponible:
+                        Si es True, se cambia a False y se muestra el mensaje indicando que el libro ha sido prestado.
+                        Si es False, se muestra un mensaje de error, que indica que el libro ya esta prestado.
+                 
+Opción 3: Devolver un libro
+Se pide al usuario que ingrese un ISBN.
+El programa llama a b.devolver(isbn)
+    devolver(isbn) busca el libro con buscar(isbn).
+        buscar(isbn) recorre inventario: Si no lo encuentra, devuelve None.
+            Si encuentra el libro, devuelve su instancia.
+                Se llama a libro.devolver()
+                    Dentro de Libro.devolver(), se revisa self.disponible:
+                        Si el libro estaba prestado, se marca como disponible y un mensaje de que el libro ha sido devuelto.
+                        Si ya estaba disponible, se muestra un mensaje de advertencia, indicando que ya estaba disponible.
+
+Opción 4: Mostrar todos los libros (Se muestra una lista con todos los libros en la biblioteca y su estado (Disponible/Prestado).
+El programa llama a b.mostrar()
+    mostrar() revisa si inventario está vacío
+        Si está vacío el inventario, muestra  un mensaje "No hay libros en la biblioteca".
+        Si hay libros, recorre inventario y llama a __str__() en cada Libro.
+            Libro.__str__() devuelve un string con la información del libro y es imprimida.
+
+Opción 5: Salir
+El while True en mostrar_menu() se interrumpe con break
+    El programa finaliza.
+
+'''
