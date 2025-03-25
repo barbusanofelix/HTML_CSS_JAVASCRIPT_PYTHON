@@ -1,6 +1,7 @@
 import math as m
 
 
+
 def deforEntrePases(do,df):                 #* Calcula la deformacion Total entre pases ( Puede ser entre cualquier tramo )
     return 2*m.log(do/df)
 
@@ -90,8 +91,29 @@ def calculoSerieDeforDecrMpr(do,e_pase, pases):            #do= Diametro Inicial
         serieDec.append((df,porcentaje_reduccion,e_pase[n]))
     return serieDec
 
+#? Determina cual debe ser el porcentaje maximo de reduccion en el ultimo pase para que la serie sea de reduccion decreciente.
+#? Se puede fijar la reduccion del 1er pase, 2do pase y ultimo pase. La  idea es establecer cual es el porcentaje maximo en ultimo pase para 
+#? que la serie sea decreciente, en funcion de los parametros de reducciones que le dimos en 1ero y 2do pase.
+def minima_reduccion_ult_pase_serie_decreciente(do,df,pases,porc_red1, porc_red2):       #? do= Diametro inicial o el d2 ( diametro en 2do pase),df= diametro del pase final. 
+    defor_p1=deforUnPase(porc_red1)
+    d1=df_vs_do_defor(do,defor_p1)              # d1: diametro en pase 1
+    defor_p2=deforUnPase(porc_red2)
+    d2=df_vs_do_defor(d1,defor_p2)              # d2: Diametro en pase 2 
     
-def calculoSerieDecrConRedDada1ero2doPase(do,df,pases,porc_red1, porc_red2, porc_red_ult_pase):                       # calculo Serie Decrec con reduccion Dada en 1ero, 2do pase 
+    e_total=deforEntrePases(d2,df)              # Deformacion entre pase 2 al pase final.
+    print("CALCULO REDUCCION MINIMA")
+    print("deformacion p2: ", defor_p2, " E_TOTAL : ", e_total)
+    
+    # Base a formulas de reduccion obtengo la deformacion maxima en ultimo pase para que sea descendiente la serie.
+    e_ult_pase = (defor_p2*factSecuenciaRed(pases-2)-(pases-2)*e_total)/(factSecuenciaRed(pases-2)-(m.pow(pases-2,2)))
+    print("*****CALCULA e_pase2 x factor secuencias ", e_ult_pase)
+    porc_max_ult_pase= 100*(1-m.pow(m.e,-e_ult_pase))
+    return porc_max_ult_pase
+    
+    
+    
+def calculoSerieDecrConRedDada1ero2doPase(do,df,pases,porc_red1, porc_red2, porc_red_ult_pase):        
+    print(f"Parametros recibidos do {do} df {df} pases {pases} %Red_p1 {porc_red1} %red.p2 {porc_red2} %Red.Ultimo pase {porc_red_ult_pase} ")# calculo Serie Decrec con reduccion Dada en 1ero, 2do pase 
     serieDecRed1_2=[]                                              # Serie decreciente desde 3er a ultimo pase
     serieDecRed1_2=[(do,0,0)]
     
@@ -103,15 +125,17 @@ def calculoSerieDecrConRedDada1ero2doPase(do,df,pases,porc_red1, porc_red2, porc
     
     defor_p2=deforUnPase(porc_red2)
     d2=df_vs_do_defor(d1,defor_p2)
+    print("d2:",d2)
     serieDecRed1_2.append((d2,porc_red2,defor_p2))
     
     # Ahora tengo que calcular una serie con reduccion decreciente donde el Do = d2 y los pasos serian pasos-2
     # Luego, tengo que añadir la serie obtenida desde el paso 1 hasta el paso final empezando desde la posicion 3 (Ya tengo añadio 0,1 y 2)
     # Primero calculo la deformacion de los pases.
     
-    e_individual_repartida=deforEi(d2,df,pases-2,24)
+    e_individual_repartida=deforEi(d2,df,pases-2,porc_red_ult_pase)
     
     e_total=deforEntrePases(d2,df)
+    print("El e_toal desde d2 a df ", e_total)
     factor_secuencia=factSecuenciaRed(pases-2)
     
     print(f"Ei : {e_individual_repartida:.6f} d2: {d2:.4f}  df: {df:.3} pases:{pases-2} Fact_secuencia: {factor_secuencia:.2f}  e_total: {e_total:.6f}    ")
@@ -138,15 +162,116 @@ def calculoSerieDecrConRedDada1ero2doPase(do,df,pases,porc_red1, porc_red2, porc
     print(serie_faltante)    
     
     return serieDecRed1_2
-     
+
+
+
+'''
+Funcion para graficar metodo 2
+
+'''  
+import matplotlib.pyplot as plt
+import tkinter
+
+def graficar_serie(series, pases):
+    import numpy as np
+
+    #* CONVERTIMOS LOS ELEMENTOS DE LA SERIE EN VALORES X (PASE)  Y LOS Y ( DIAMETRO Y REDUCCION COMO FUNCION DE LOS PASES)
+    pase = [i for i in range(0, pases + 1)]
+    diametro = [serie[0] for serie in series]
+    reduccion = [serie[1] for serie in series]
+
+    if reduccion:                   #* # Si la lista de reducciones no está vacía
+        reduccion[0] = None         #* Asignamos None a la reduccion[0] ( se corresponde con la M.Prima)
+
+   
+    #* Obtener la resolución de la pantalla
+    ''' Crea una instancia de la clase Tk de tkinter. Tk es la ventana principal de una aplicación tkinter. 
+        Aunque no se muestra visualmente en este caso, es necesario crearla para acceder a las propiedades de la pantalla.'''
+    root = tkinter.Tk()
+    
+    '''
+    Llama al método winfo_screenwidth() del objeto root. Este método devuelve el ancho de la pantalla en píxeles. 
+    El valor obtenido se almacena en la variable screen_width.
+    '''
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    
+    '''
+    Destruye la ventana Tk que se creó al principio. Esto es importante para liberar los recursos del sistema y evitar que la ventana 
+    permanezca abierta innecesariamente.
+    Destruye la ventana Tk que se creó al principio. Esto es importante para liberar los recursos del sistema y evitar que la ventana permanezca abierta innecesariamente.
+
+    El código crea una ventana tkinter temporal, obtiene el ancho y el alto de la pantalla, imprime la resolución en la consola y luego destruye la 
+    ventana temporal. Esto permite obtener la resolución de la pantalla sin mostrar una ventana visible al usuario.
+    '''    
+    root.destroy()
+
+    #* Calcular el tamaño de la figura como un porcentaje de la pantalla
+    width_inches = screen_width / 200  #100  # Ajusta el divisor para cambiar el porcentaje
+    height_inches = screen_height / 200 # 100 # Ajusta el divisor para cambiar el porcentaje
+
+    # Crear el grafico y los ejes ( >solo memoria. No se muestra hasta show())
+    fig, ax1 = plt.subplots(figsize=(width_inches, height_inches)) # Establecer el tamaño de la figura
+
+    #? Configurar el eje X
+    ax1.set_xlabel("Numero de pase")
+    #? Configurar el eje Y izquierdo (diámetro)
+    ax1.set_ylabel("Diametro", color="blue")
+    #? Graficar los diámetros
+    ax1.plot(pase, diametro, color="blue", label="Diametros por paso")
+    #? Configurar las marcas del eje Y izquierdo
+    ax1.tick_params(axis="y", labelcolor="blue")
+    #? Configurar los límites del eje Y izquierdo
+    ax1.set_ylim(0, round(max(diametro)*1.25))                            #ax1.set_ylim(min(diametro) - 1, max(diametro) + 1)       # Una forma de suministrar el rango de diametros en el eje y
+
+    # Agregar valores sobre los puntos del diametro.Valores formateados sobre los puntos del diametro.
+    for i, txt in enumerate(diametro):
+        ax1.annotate(f'{txt:.2f}', (pase[i], diametro[i])) # formato con 2 decimales.
+
+    #? Crear el eje Y derecho (reducción)
+    ax2 = ax1.twinx()
+
+    ax2.set_ylabel("%Reducion entre pases", color="red")
+    #? Graficar las reducciones
+    ax2.plot(pase, reduccion, color="red", marker='o', label="%Reducion entre pases") # Marcadores circulares
+    #? Establece el min y max de eje Y secuendario
+    ax2.set_ylim(0, 50) # Establecer el rango del eje Y derecho de 0 a 50
+
+    #? Agregar valores formateados sobre los puntos de la reduccion.
+    reduccion_filtrada = [r for r in reduccion if r is not None]  #?# Se filtra para evitar errores con valores None.
+
+    if reduccion_filtrada:
+        # Agregar valores formateados sobre los puntos de la reduccion.
+        for i, txt in enumerate(reduccion):
+            if txt is not None:
+                ax2.annotate(f'{txt:.2f}', (pase[i], reduccion[i]))
+    else:
+        print("Advertencia: No hay valores válidos para el eje de reducción.")
+        
+    # Agregar lineas verticales punteadas en cada pase
+    for x in pase:
+        ax1.axvline(x, color='gray', linestyle='--', linewidth=0.8) # lineas punteadas en eje izquierdo
+        ax2.axvline(x, color='gray', linestyle='--', linewidth=0.8) # lineas punteadas en eje derecho    
+
+    fig.suptitle("Gráfico Diametro y Reduccion por pase")
+    #? Mostrar la leyenda
+    fig.legend()
+    plt.grid(True)
+    plt.show()             
+       
              
 do=6.35
 df=2.032
-porc_red_pase1=20
-porc_red_pase2=25
-porc_red_ult_pase=16   
+porc_red_pase1=22
+porc_red_pase2=27
+porc_red_ult_pase=24
 pases=8
+deforPase3Con26=deforUnPase(26)
 
+porc_maximo_ult_pase_para_red_Decre= minima_reduccion_ult_pase_serie_decreciente(do,df,pases,porc_red_pase1, porc_red_pase2)
+print("Cual es el porcentaje minimo para hacer serie decreciente: ", porc_maximo_ult_pase_para_red_Decre)
+
+print("Deformacion para un pase dado %Red : ",deforPase3Con26  )
 
 serie= calculoSerieDeforCte(do,df,pases)                           # Cacula serie de deformacion constante
 imprimir_serie_deforCte(serie, "Deformacion Contante")
@@ -168,8 +293,9 @@ serie_Decreciente= calculoSerieDeforDecrMpr(do,e_pases,pases)
 
 imprimir_serie_deforCte(serie_Decreciente,"Deformacion Decreciente desde M.Pr")
 
-serie_RedPases1_2= calculoSerieDecrConRedDada1ero2doPase(do,df,pases,20,25,24)
+serie_RedPases1_2= calculoSerieDecrConRedDada1ero2doPase(do,df,pases,porc_red_pase1,porc_red_pase2,porc_red_ult_pase)
 imprimir_serie_deforCte(serie_RedPases1_2,"Probando serie con reduccion establecida en pases 1 y 2")
+graficar_serie(serie_RedPases1_2,pases)
 
 '''
 fe=0.20
