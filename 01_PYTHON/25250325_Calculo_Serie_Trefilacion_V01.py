@@ -99,16 +99,21 @@ def minima_reduccion_ult_pase_serie_decreciente(do,df,pases,porc_red1, porc_red2
     d1=df_vs_do_defor(do,defor_p1)              # d1: diametro en pase 1
     defor_p2=deforUnPase(porc_red2)
     d2=df_vs_do_defor(d1,defor_p2)              # d2: Diametro en pase 2 
-    
-    e_total=deforEntrePases(d2,df)              # Deformacion entre pase 2 al pase final.
+    defor_p3=defor_p2                           # Deformacion p3 es igual a la deformacion del pase 2 (aceptaria que el %Red del pase 3 sea igual al pase 2)
+    d3=df_vs_do_defor(d2,defor_p2)              # d3: Se calcula en base al d2 y con la misma deformacion del pase 2 (misma reduccion)  
+    e_total_d2=deforEntrePases(d2,df)           # Deformacion entre pase 2 al pase final.
+    e_total_d3=deforEntrePases(d3,df)
     print("CALCULO REDUCCION MINIMA")
-    print("deformacion p2: ", defor_p2, " E_TOTAL : ", e_total)
+    print("deformacion p2: ", defor_p2, " e_total_d2_df : ", e_total_d2, "e_totl_d3_df : ", e_total_d3)
     
     # Base a formulas de reduccion obtengo la deformacion maxima en ultimo pase para que sea descendiente la serie.
-    e_ult_pase = (defor_p2*factSecuenciaRed(pases-2)-(pases-2)*e_total)/(factSecuenciaRed(pases-2)-(m.pow(pases-2,2)))
-    print("*****CALCULA e_pase2 x factor secuencias ", e_ult_pase)
-    porc_max_ult_pase= 100*(1-m.pow(m.e,-e_ult_pase))
-    return porc_max_ult_pase
+    e_ult_pase_desde_d2 = (defor_p2*factSecuenciaRed(pases-2)-(pases-2)*e_total_d2)/(factSecuenciaRed(pases-2)-(m.pow(pases-2,2)))
+    e_ult_pase_desde_d3 = (defor_p3*factSecuenciaRed(pases-3)-(pases-3)*e_total_d3)/(factSecuenciaRed(pases-3)-(m.pow(pases-3,2)))
+    print("*****CALCULA e_pase2 x factor secuencias ", e_ult_pase_desde_d2)
+    porc_max_ult_pase_desde_d2= 100*(1-m.pow(m.e,-e_ult_pase_desde_d2))
+    porc_max_ult_pase_desde_d3= 100*(1-m.pow(m.e,-e_ult_pase_desde_d3))
+    porc_max_d2_d3=(porc_max_ult_pase_desde_d2,porc_max_ult_pase_desde_d3)
+    return porc_max_d2_d3
     
     
     
@@ -263,13 +268,16 @@ def graficar_serie(series, pases):
 do=6.35
 df=2.032
 porc_red_pase1=22
-porc_red_pase2=27
-porc_red_ult_pase=24
-pases=8
+porc_red_pase2=25
+porc_red_ult_pase=18.96097802831117
+pases=9
 deforPase3Con26=deforUnPase(26)
 
-porc_maximo_ult_pase_para_red_Decre= minima_reduccion_ult_pase_serie_decreciente(do,df,pases,porc_red_pase1, porc_red_pase2)
-print("Cual es el porcentaje minimo para hacer serie decreciente: ", porc_maximo_ult_pase_para_red_Decre)
+porc_maximo_ult_pase_para_red_Decre= minima_reduccion_ult_pase_serie_decreciente(do,df,pases,porc_red_pase1, porc_red_pase2)  # devuelve Tupla de los porcentajes ultimo pase segun d2 y d3
+porc_ideal_ult_pase_origen_d2, porc_ideal_ulto_pase_origen_d3= porc_maximo_ult_pase_para_red_Decre
+
+print("Cual es el porcentaje minimo para hacer serie decreciente desde d2 : ", porc_ideal_ult_pase_origen_d2)
+print("Cual es el porcentaje minimo para hacer serie decreciente desde d3 : ", porc_ideal_ulto_pase_origen_d3)
 
 print("Deformacion para un pase dado %Red : ",deforPase3Con26  )
 
