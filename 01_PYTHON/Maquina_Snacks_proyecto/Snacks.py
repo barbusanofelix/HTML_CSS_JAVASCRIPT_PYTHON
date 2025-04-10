@@ -52,8 +52,8 @@ class Snacks():
         
     
     def __str__(self):                          # Imprimir elementos de la clase Snacks
-        return (f'Id_Snack: {self.id_snack} Nombre: {self.__nombre_snack}  Precio: {self.__precio_snack}')
+        return (f'Id_Snack: {self.id_snack:<12} Nombre: {self.__nombre_snack:<15}  Precio: {self.__precio_snack:<8}')
     
     
-    def escribir(self):                         # Metodo para escribir la informacion del Snack en el archivo en disco.
+    def escribir_snacks(self):                         # Metodo para escribir la informacion del Snack en el archivo en disco: id,nombre,precio
         return  f'{self.id_snack },{self.__nombre_snack},{self.__precio_snack}'   #Se accesa directo porque estamos dentro de la clase
