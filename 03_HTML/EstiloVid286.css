@@ -1,0 +1,18 @@
+/* ARCHIVO DE ESTILOS CSS RELACIONADOS CON EL VIDEO 286 DE UDEMY  */
+
+/* Siempre hay que terminar cada linea con ;  */
+    body{
+        background-color:black;
+        color:white;
+
+    }
+
+    a{
+        color:hotpink;
+
+    }
+/*Para cambiar el estilo de los vinculos al poner el mouese sobre el usamos :hover  */
+a:hover{
+
+    color:yellow;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Table Bootstrap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+          crossorigin="anonymous">
+</head>
+<body>
+<!-- Las class son clases de BootStrap. text-center ( Centrar ) , py-4 ( Padding alrededor)  y text-warning (Color amarillo) -->
+<h1 class="text-center py-4 text-warning">Es una prueba</h1>
+
+<!--    CREAMOS UN CONTAINER <div>  QUE ES UNA CLASE DE BOOTSTRAP Y COPIAMOS DENTRO DE ESTE, EL EJEMPLO DE TABLA
+        QUE LO BAJAMOS DE: https://getbootstrap.com/docs/5.3/content/tables/#overview
+-->
+<div class="container">  <!--Inicio de tabla-->
+    <!-- container es clase de bootstrap. Se aplica para tener la tabla envuelta en un contenedor-->
+    <table class="table">   <!-- class table es de bootStrap   -->
+        <!-- Colocamos los títulos de los encabezados -->
+        <!-- LA TABLA SE HACE FILA A FILA -->
+        <thead>  <!--  t=table head: Cabecera de la tabla -->
+        <tr>  <!-- Table row -->
+            <!-- Llenamos los títulos de las columnas   -->
+            <!-- scope es opcional y se puede quitar-->
+            <th scope="col">Id</th>    <!-- th: "table header", o encabezado de tabla (celda de encabezado).-->
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Membresía</th>
+        </tr>
+        </thead>
+        <!-- Llenamos el body o cuerpo  -->
+        <tbody>  <!--  t=table body: Cuerpo de la tabla -->
+            <!-- Llenamos fila a fila los datos por cada Fila  -->
+            <tr>  <!-- Fila 1 -->
+                <th scope="row">Fila 1</th>
+                <td>Renata</td>   <!-- td: table data", o datos de tabla (celda de datos).-->
+                <td>Cruz</td>
+                <td>100</td>
+            </tr>
+            <tr> <!-- Fila 2 -->
+                <th scope="row">Fila 2</th>
+                <td>Emilio</td>
+                <td>Sanchez</td>
+                <td>200</td>
+            </tr>
+            <tr> <!-- Fila 3 -->
+                <th scope="row">Fila 3</th>
+                <td>Pepe</td>
+                <td>Lopez</td>
+                <td>300</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>  <!--Fin de la tabla-->
+<script src="https://cdn.jsdelivr.net/npm/boots trap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

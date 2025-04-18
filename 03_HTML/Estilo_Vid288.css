@@ -1,0 +1,34 @@
+/*
+    ESTILOS DEL VIDEO 288 SOBRE USO DE CLASES
+
+    Las clases se definen en CSS para aplicar el mismo estilo a diferentes compoenentes.
+
+    En el HTML, el nombre de la class se coloca en la etiqueta, ejemplo:
+    <h1 class="Texto-Grande">Hola Mundo</
+*/
+.Bloque{
+    display:block;
+}
+
+.Titulo-Grande{
+   font-size:60px;
+   color:blue;
+}
+
+.Titulo-Medio{
+    font-size:30px;
+}
+
+.Centrado{
+    text-align:center;
+}
+
+.Color-Rojo{
+    color:red;
+}
+
+.Color-Azul{
+    color:blue;
+}
+
+

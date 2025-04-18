@@ -1,0 +1,137 @@
+<!doctype html>
+<!--Nos vamos a BootStrap , Quick Start y copiamos el 2do modelo de código -->
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{titulo}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+<div class="container">
+    <!-- Titulo  -->
+    <div class="container py-3">
+        <h1 class="text-center display-5 text-warning">{{titulo}}<i class="bi bi-award"></i></h1>
+    </div>
+</div>  <!-- Fin de Titulo -->
+<!-- Grid principal  -->
+<!-- pb: padding bottom de 3 rem-->
+<div class="container-fluid  pb-3 ">  <!-- Aqui le quite de las clases border border-white -->
+    <div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
+        <!-- Contenedor dentro del fluid que divide la parte interna en 2 columnas-->
+        <!--d-grid: Convierte el div en un contenedor de cuadrícula. gap-3: Aplica un espacio entre las celdas de la cuadrícula.
+        style="grid-template-columns: 1fr 2fr;": Define dos columnas en la cuadrícula, donde la segunda columna ocupa el doble de ancho que la primera.
+        Al aplicar la division en 2 columnas el siguiente div ( del formulario ) ocupara el lado izquierdo y el siguiente del lado derecho-->
+        <div class="border rounded-3 p-2"> <!-- contenedor del formulario, contenedor lado izquierdo-->
+            <!-- Aca ira el formulario lado izquierdo-->
+            <!-- /guardar sera una URL enviada al servidor con metodo post -->
+            <form action="/guardar" method="post" autocomplete="off">
+                {{forma.csrf_token}}
+                <!--Manejar campo oculto del id. -->
+                <!-- Si tenemos id quiere decir que se esta modificando un registro y sino es adición -->
+                <!-- Valor id ( primero en HTML y luego con Jinja2 ( WTForm ) haremos la sustitución dinámica de variables )-->
+                <!-- En HTML usaríamos un input de tipo (type=hidden , oculto) con el id="id" y el valor (value="" ó value="1" ó 2, 3,,,,el ide del registro
+                     En el archivo cliente_forma.py hay que incluir el campo id
+                <input type="hidden" id="id" value="1">-->
+                {{forma.id}}  <!--el id lo asigna a forma.id pero es oculto   -->
+                <!--Campo nombre  -->
+                <div class="form-floating py-2">
+                    <!--crea un campo de entrada de texto. type text es que recibira texto -->
+                    <!--classs form-control , ancho del 100%- se expanda para llenar su contenedor.
+                    Un borde y relleno para mejor apariencia visual.
+                    Estilos de enfoque (cuando el usuario hace clic en el campo) para mejorar la usabilidad.
+                    id="nombre" : Javascript toma la referencia del id y la etiqueta label asocia el campo
+                    placeholder=" ": Simplemente para que trabaje bien BootStrap y se vea primero Nombre en grande y al seleccionarlo se ponga mas pequeño
+                    Si quitamos placeholder NO hace ese efecto ( Chat GPT lo indicó).-->
+<!--                     <input type="text"  class="form-control" id="nombre" placeholder=" " /> -->
+<!--                     <label for="nombre">Nombre</label> &lt;!&ndash;Es el titulo Nombre que aparece en la esquina superior izq. &ndash;&gt; -->
+                        {{forma.nombre(class="form-control", placeholder=" ")}}  <!--form-control viene de HTML-BootStrap -->
+                        {{forma.nombre.label}}
+                </div>
+                <!--Campo Apellido  -->
+                <div class="form-floating py-2">
+<!--                     <input type="text" class="form-control" id="apellido" placeholder=" "/> -->
+<!--                     <label for="apellido">Apellido</label> -->
+                        {{forma.apellido(class="form-control", placeholder=" ")}}
+                        {{forma.apellido.label}}
+                </div>
+                <!-- Membresia -->
+                <div class="form-floating py-2">
+<!--                     <input type="number" class="form-control" id="membresia" placeholder=" "/> -->
+<!--                     <label for="membresia">Membresía</label> -->
+                        {{forma.membresia(class="form-control", placeholder=" ")}}
+                        {{forma.membresia.label}}
+
+                </div>
+                <!-- Botones de Guardar y Limpiar -->
+                <div class="text-center py-2">
+                    <!--Botones de Guardar y Limpiar-->
+                    <!-- btn-sm: boton small me-2: margen end de 2  -->
+                    <!--<button type="submit" class="btn btn-warning btn-sm me-2">Guardar</button> -->
+                    <!--Parece un boton pero en realidad es una input, tipo boton que al estar dentro del formulario lo resetea -->
+                    {{forma.guardar(class="btn btn-warning btn-sm me-3")}}
+                    <!--<input type="reset" class="btn btn-danger btn-sm ms-2" value="Limpiar"/> -->
+                    <a href="/limpiar" class="btn btn-danger btn-sm ms-2">Limpiar</a>
+                </div>
+            </form>
+
+
+        </div><!-- Cierre contenedor del formulario-->
+        <!-- contenedor de tabla de clientes-->
+        <div class="border rounded-3 p-2"> <!-- Contenedor del lado derecho  -->
+            <!-- Aqui va el contenedor de tabla de clientes-->
+            <table class="table table-striped table-hover"> <!--striped : filas claras y otras oscuras-->
+                <thead class="table-warning">
+                <tr>
+                    <!-- Cabecero de la tabla -->
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Membresía</th>
+                    <th></th>    <!--Para los 2 botones  -->
+                </tr>
+                </thead>
+                <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td>{{cliente.id}}</td>
+                    <td>{{cliente.nombre}}</td>
+                    <td>{{cliente.apellido}}</td>
+                    <td>{{cliente.membresia}}</td>
+                    <td class="text-center">
+                        <div>
+                            <!-- Configuramos el boton del lapiz para editar el cliente.id , que sea un boton del tipo warning, mas pequeño con sm (small) y me-3 ( margen end)
+                                 dentro de la referencia incluimos el icono del lápiz-->
+                            <!--El nombre de la URL editar lo ponemos nosotros, es decir, puede ser el nombre que queramos pero luego usaremos ese  -->
+                            <!-- En ClienteDAO editar equivale a actualizar-->
+                            <a href="/editar/{{cliente.id}}"
+                               class="btn btn-warning btn-sm me-3">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <!-- Al igual que con editar, el nombre "delete" se lo podemos poner nosotros -->
+                            <!-- En ClienteDAO delete equivale a la función eliminar-->
+                            <a href="/eliminar/{{cliente.id}}"
+                               class="btn btn-danger btn-sm">
+                               <i class="bi bi-trash3"></i>
+                            </a>
+                        </div>
+
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div> <!-- Cierre contenedor listado de clientes -->
+
+    </div>
+</div> <!-- Cierre del contenedor fluid  -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSI apyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+</body>
+</html>

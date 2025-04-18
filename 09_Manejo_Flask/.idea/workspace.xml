@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4c7472af-52b2-4701-b3a8-1581057c4bec" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../01_PYTHON/74 Expresiones_Regulares_o_REGEX.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../03_HTML/32_HolaMundoRepetidoEnPyCharm_Video283.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../03_HTML/33_Links_en_HTML_Vid284.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../03_HTML/34_Estilos_Internos.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../03_HTML/35_Estilo_Externo_Vid286.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../03_HTML/36_Clases_y_Selectores_CSS.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../03_HTML/37_Inicio_BootStrap.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../03_HTML/38_Tablas_Con_BootStraps.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../03_HTML/EstiloVid286.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../03_HTML/Estilo_Vid288.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../01_PYTHON/73 Funciones_Lambda.py" beforeDir="false" afterPath="$PROJECT_DIR$/../01_PYTHON/73 Funciones_Lambda.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../03_HTML/32_HolaMundoRepetidoEnPyCharm.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../03_HTML/Hola_Mundo/LinksEnHTML.html" beforeDir="false" afterPath="$PROJECT_DIR$/../03_HTML/Hola_Mundo_Videos_282_283/LinksEnHTMLVideo_283.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../03_HTML/Hola_Mundo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../03_HTML/Hola_Mundo_Videos_282_283/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2vdz8IWyVVgAfMz6VaANpqAzHSd" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-4f4e415b4190-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.26053.29" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4c7472af-52b2-4701-b3a8-1581057c4bec" name="Changes" comment="" />
+      <created>1744489578809</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744489578809</updated>
+    </task>
+    <servers />
+  </component>
+</project>
