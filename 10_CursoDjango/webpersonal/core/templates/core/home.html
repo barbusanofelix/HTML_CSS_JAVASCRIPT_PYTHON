@@ -1,0 +1,21 @@
+<!-- El extends indica que tomaremos el body de base.html fuera del block contenido-->
+{% extends 'core/base.html' %}
+
+{% block titele %}Portada {% endblock %}
+
+<!-- Para que se cargue la imagen se necesita colocar la carga de los static , antes de la carga-->
+{% block background %}{% load static %}{% static 'core/img/home-bg.jpg' %}{% endblock %}
+
+
+{% block headers %}
+    <h1>Juan Pérez</h1>
+    <span class="subheading">Ingeniero Industrial</span>
+{% endblock %}
+    
+    
+
+
+<!-- Y en block le insertaremos a base.html la informacion en el bloque-->
+{% block contenido %}
+    <!-- No va nada en el contenido-->
+{% endblock %}

@@ -92,7 +92,7 @@ class SistemaGestionContactos():
         self.contactos_dao.agregar_contacto(nuevo_contacto)
         print('Contacto agregado')
 
-    # Uso de expresion regular para validar el nombre con REGEX
+    # Uso de expresion regular para validar el nombre con RE
     def validar_nombre(self, nombre):
         # Patrón modificado:
         # - Al menos 3 letras al inicio.
