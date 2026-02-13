@@ -1,0 +1,318 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load l10n %}
+
+{% block title %}Detalle de Receta: {{ receta.nombre }} - Mis Recetas{% endblock %}
+
+{% block page_title %}Detalle de Receta: {{ receta.nombre }}{% endblock %}
+
+{% block content %}
+    <div class="list-container detail-container">
+        <div class="receta-header">
+            <h2>{{ receta.nombre }}
+                {% if receta.categoria %}
+                    <br>
+                    <span class="recipe-category">{{receta.categoria.nombre }}</span>
+                {% endif %}
+            </h2>
+            <div class="item-actions"> 
+                {% if pk_padre %}
+                    <a href="{% url 'detalle_receta' pk_padre %}" class="boton-regresar" title='Regresar a la receta de origen'>
+                        <img src="{% static 'core/img/regresar_32x32.png' %}" alt="Regresar a la Receta" class="icono-regresar">
+                    </a>
+                {% endif %}
+                
+                <a href="{% url 'listar_recetas' %}" title="Listar todas las Recetas" class="boton-receta">
+                    <img src="{% static 'core/img/receta_48x48.png' %}" alt="Listar Recetas" class="icono-receta">
+                </a>
+                
+                <a href="{% url 'editar_receta' receta.pk %}" class="boton-editar" title="Editar Receta">
+                   <img src="{% static 'core/img/editar_48x48.png' %}" alt="Editar Receta" class="icono-editar">
+                </a>
+
+                <a href="{% url 'delete_receta' receta.pk %}" class="boton-eliminar" title="Elimina Receta">
+                    <img src="{% static 'core/img/eliminar_48x48.png' %}" alt="Elimina Receta" class="icono-eliminar">
+                </a>    
+            </div>
+        </div>
+
+        {% if fotos_de_receta %}
+            <div class="receta-fotos-section-top">
+                <div class="receta-fotos-grid">
+                    {% for foto in fotos_de_receta %}
+                        <div class="receta-foto-item-horizontal">
+                            {% if foto.imagen %}
+                                <img src="{{ foto.imagen.url }}" alt="{{ foto.descripcion|default:receta.nombre }}" class="receta-foto-img-horizontal">
+                            {% endif %}
+                            {% if foto.descripcion %}
+                                <p>{{ foto.descripcion }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if receta.descripcion %}
+        <h3>Descripción:</h3>
+        <div class="instructions-content">
+            <p>{{ receta.descripcion }}</p>
+        </div>    
+        {% endif %}
+
+        <div class="servings-control">
+            <p>Porciones Originales: <span id="original-porciones">{{ receta.porciones }}</span></p>
+            <label for="desired-portions">Porciones deseadas:</label>
+            <input type="number" id="desired-portions" name="desired_portions" 
+                    value="{{ receta.porciones }}" min="1">
+        </div>
+
+        <h3>Instrucciones de Preparación</h3>
+        <div class="instructions-content">
+            <p>{{ receta.instrucciones|linebreaksbr }}</p>
+        </div>
+
+<h3>Ingredientes</h3>
+{% if ingredientes_de_receta %}
+    <ul class="ingredientes-list" id="ingredientes-proporcionales">
+        {% for ri in ingredientes_de_receta %}
+            {% if ri.ingrediente %}
+                <li data-original-cantidad="{{ ri.cantidad|unlocalize }}"
+                    data-unidad-abreviatura="{% if ri.unidad_medida %}{{ ri.unidad_medida.abreviatura|default:ri.unidad_medida.nombre }}{% endif %}"
+                    data-ingrediente-nombre="{{ ri.ingrediente.nombre }}"> 
+                    
+                    <span class="ingredient-quantity">{{ ri.cantidad|floatformat:2 }}</span>
+                    
+                    <span class="unidad-display">
+                        {% if ri.unidad_medida %}
+                            {{ ri.unidad_medida.abreviatura|default:ri.unidad_medida.nombre }}
+                        {% else %}
+                            sin unidad de medida
+                        {% endif %}
+                    </span>
+                    de <span class="ingrediente-nombre-display">{{ ri.ingrediente.nombre }}</span>
+                </li>
+            {% else %}
+                <li style="color: red; font-style: italic;">
+                    [Error de datos: Ingrediente no encontrado para un elemento de esta receta.]
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Esta receta no tiene ingredientes listados todavía.</p>
+{% endif %}
+
+        {% if sub_recetas_componentes %}
+            <h3>Componentes de Receta (Otras Recetas Usadas)</h3>
+            <ul class="componentes-list">
+                {% for rrc in sub_recetas_componentes %}
+                    <li>
+                        <a href="{% url 'detalle_receta_con_padre' rrc.receta_subcomponente.pk receta.pk %}">{{ rrc.receta_subcomponente.nombre }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+
+        {% if sub_recetas_componentes %}
+            <div class="mt-4 d-flex justify-content-end">
+                <button type="button" class="boton-receta" data-bs-toggle="modal" data-bs-target="#consolidatedIngredientsModal">
+                    <img src="{% static 'core/img/lista_consolidada_32x32.png' %}" alt="Listar Recetas" title="Lista Consolidada Ingredientes" class="icono-receta">
+                </button>
+            </div>
+
+            <div class="modal fade" id="consolidatedIngredientsModal" tabindex="-1" aria-labelledby="consolidatedIngredientsModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-between align-items-center" >
+                            <h5 class="modal-title" id="consolidatedIngredientsModalLabel">
+                                Lista de Ingredientes Consolidados
+                            </h5>
+                                <!-- antes el boton tenia class="btn btn-sm btn-info"-->
+                            <div class="modal-header-actions d-flex align-items-center">
+                                     
+                                <button type="button" class="boton-ayuda" 
+                                        data-bs-toggle="popover" data-bs-placement="right" data-bs-html="true" 
+                                        title="Cálculo cantidad de Ingredientes" id="miPopover"
+                                        data-bs-content="Receta Principal= RP.<br>Receta secundaria=RS.<br>Cantidad de ingrediente de RS = 1 porcion RS x porciones RP x Factor porciones RP.<br>Cantidad RP= Cantidad en RP x Factor porciones."
+                                        class="popover-ancho-personalizado">
+                                <img src="{% static 'core/img/ayuda_32x32.png' %}" alt="Ayuda calculo" title="Ayuda" class="icono-ayuda">
+                                </button>
+                            
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" title="Cerrar" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-striped" id="tabla-ingredientes-consolidados">
+                                <thead>
+                                    <tr>
+                                        <th>Ingrediente</th>
+                                        <th>{{ receta_principal_nombre }}</th>
+                                        <th>{{ receta_componente_nombre }}</th>
+                                        <th>Total</th>
+                                        <th>Unidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in consolidated_ingredients %}
+                                        <tr data-ingrediente-nombre="{{ item.ingrediente_nombre }}"
+                                            data-original-cantidad-principal="{{ item.cantidad_principal|unlocalize }}"
+                                            data-original-cantidad-componente="{{ item.cantidad_componente|unlocalize }}"
+                                            data-unidad-medida="{% if item.unidad_medida %}{{ item.unidad_medida.abreviatura|default:item.unidad_medida.nombre }}{% endif %}">
+                                            <td>{{ item.ingrediente_nombre }}</td>
+                                            <td class="cantidad-principal">{{ item.cantidad_principal|floatformat:2|unlocalize }}</td>
+                                            <td class="cantidad-componente">{{ item.cantidad_componente|floatformat:2|unlocalize }}</td>
+                                            <td class="cantidad-total">
+                                                {% if item.total is not None %}
+                                                    {{ item.total|floatformat:2|unlocalize }}
+                                                {% else %}
+                                                    No aplica
+                                                {% endif %}
+                                            </td>
+                                             <td>
+                                                {% if item.unidad_medida %}
+                                                    {{ item.unidad_medida.abreviatura|default:item.unidad_medida.nombre }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="5">No hay ingredientes consolidados disponibles.</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+
+                            <button type="button" class="boton-cerrar" title="Salir" data-bs-dismiss="modal">
+                                <img src="{% static 'core/img/cerrar_32x32.png' %}" alt="Regresar a la Receta" class="icono-regresar">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="recipe-dates">
+            <p>
+                <strong>Creación:</strong> {{ receta.fecha_creacion|date:"d/m/Y" }} 
+                {% if receta.fecha_creacion and receta.fecha_actualizacion %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;{# Espacio para separar visualmente #}
+                {% endif %}
+                <strong>Última Actualización:</strong>{{ receta.fecha_actualizacion|date:"d/m/Y" }}
+            </p>
+        </div>
+
+    </div>
+     
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const originalPorcionesElem = document.getElementById('original-porciones');
+        const desiredPorcionesInput = document.getElementById('desired-portions');
+        const ingredientesList = document.getElementById('ingredientes-proporcionales');
+
+        const originalPorcionesPrincipal = parseFloat(originalPorcionesElem.textContent || '1');
+
+        function updateIngredientQuantities() {
+            let desiredPorcionesPrincipal = parseFloat(desiredPorcionesInput.value) || 1;
+
+            if (originalPorcionesPrincipal === 0) {
+                return;
+            }
+            
+            const factorPrincipal = desiredPorcionesPrincipal / originalPorcionesPrincipal;
+
+            // Actualiza los ingredientes en la vista principal
+            ingredientesList.querySelectorAll('li').forEach(item => {
+                const originalCantidad = parseFloat(item.dataset.originalCantidad);
+                const newCantidad = originalCantidad * factorPrincipal;
+                const formattedCantidad = newCantidad.toLocaleString('es-ES', { 
+                    minimumFractionDigits: 2, 
+                    maximumFractionDigits: 2 
+                });
+                item.querySelector('.ingredient-quantity').textContent = formattedCantidad;
+            });
+            
+            // Llama a la función para actualizar el modal si existe
+            if (typeof updateConsolidatedQuantities === 'function') {
+                updateConsolidatedQuantities();
+            }
+        }
+
+        const consolidatedModal = document.getElementById('consolidatedIngredientsModal');
+        
+        if (consolidatedModal) {
+            const tablaConsolidada = consolidatedModal.querySelector('#tabla-ingredientes-consolidados');
+
+            function updateConsolidatedQuantities() {
+                const desiredPorcionesPrincipal = parseFloat(desiredPorcionesInput.value) || 1;
+                
+                if (originalPorcionesPrincipal === 0) {
+                    return;
+                }
+
+                const factorPrincipal = desiredPorcionesPrincipal / originalPorcionesPrincipal;
+
+                tablaConsolidada.querySelectorAll('tbody tr').forEach(row => {
+                    const originalCantidadPrincipal = parseFloat(row.dataset.originalCantidadPrincipal);
+                    const originalCantidadComponente = parseFloat(row.dataset.originalCantidadComponente);
+                    
+                    // Recalcula la cantidad de la receta principal usando el factor de la principal
+                    const newCantidadPrincipal = originalCantidadPrincipal * factorPrincipal;
+
+                    // Recalcula la cantidad del componente usando el mismo factor de la principal
+                    const newCantidadComponente = originalCantidadComponente * factorPrincipal;
+                    
+                    const newTotal = newCantidadPrincipal + newCantidadComponente;
+
+                    row.querySelector('.cantidad-principal').textContent = newCantidadPrincipal.toLocaleString('es-ES', { 
+                        minimumFractionDigits: 2, 
+                        maximumFractionDigits: 2 
+                    });
+                    
+                    row.querySelector('.cantidad-componente').textContent = newCantidadComponente.toLocaleString('es-ES', { 
+                        minimumFractionDigits: 2, 
+                        maximumFractionDigits: 2 
+                    });
+
+                    const totalCell = row.querySelector('.cantidad-total');
+                    if (totalCell && totalCell.textContent.trim() !== 'No aplica') {
+                        totalCell.textContent = newTotal.toLocaleString('es-ES', { 
+                            minimumFractionDigits: 2, 
+                            maximumFractionDigits: 2 
+                        });
+                    }
+                });
+            }
+            
+            consolidatedModal.addEventListener('show.bs.modal', function() {
+                updateConsolidatedQuantities();
+            });
+            
+            window.updateConsolidatedQuantities = updateConsolidatedQuantities;
+        }
+
+        desiredPorcionesInput.addEventListener('input', function() {
+            updateIngredientQuantities();
+        });
+
+        updateIngredientQuantities();
+    });
+    </script>
+    <!-- ACTIVA EL Popover-->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl, {
+            customClass: 'popover-ancho-personalizado' // Aquí se asigna la clase
+        })
+        })
+    });
+    </script>
+
+{% endblock %}

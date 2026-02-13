@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Link(models.Model):
-    Key=models.SlugField(verbose_name='Nombre Clave', max_length=100, unique=True)
+    key=models.SlugField(verbose_name='Nombre Clave', max_length=100, unique=True)
     name=models.CharField(max_length=200, verbose_name='Red Social')
     url=models.URLField(max_length=200, verbose_name='Enlace', blank=True, null=True)
     created=models.DateTimeField(auto_now_add=True, verbose_name='Creado el')

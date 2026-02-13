@@ -15,13 +15,7 @@ def visitanos_store(request):
     return render(request,"core/store.html")
 
 
-def contacto_contact(request):
-    return render(request,"core/contact.html")
-
-
 def blog_blog(request):
     return render(request,"core/blog.html")
 
 
-def sample_sample(request):
-    return render(request,"core/sample.html")

@@ -299,3 +299,9 @@ ul.errorlist{
   font-style: italic;
   color: red;
 }
+
+.white-separator {
+  color: white;
+  margin-left: 0.5em; /* O el espacio que desees */
+  margin-right: 0.5em; /* O el espacio que desees */
+}

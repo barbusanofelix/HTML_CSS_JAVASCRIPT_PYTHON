@@ -31,6 +31,13 @@ urlpatterns = [
     # Vistas de blog    
     path('blog/', include('blog.urls')),
     
+     # Vista de Pages    
+    path('page/', include('pages.urls')),
+    
+    #Vista Contact
+    path('contact/', include('contact.urls')),
+    
+    
     # Vista Administrador
     path('admin/', admin.site.urls),
 ]
